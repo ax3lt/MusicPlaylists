@@ -1,0 +1,444 @@
+<!--
+{
+  _id: new ObjectId("648884f90db3c55e1620637b"),
+  userId: '6481f4beccc4999ac2efa1ba',
+  title: 'POIDPASKFPODAS',
+  description: 'NJIKGFNJKONFSDO',
+  songsId: [
+    '0AluA5RNsa4Cx6XRhf2hWZ',
+    '7x8O57b6oXzmbwANbSy2wq',
+    '4Q6LSSmQwn94hioXfvzdbU'
+  ],
+  songsName: [
+    '10 Freaky Girls (with 21 Savage)',
+    '12 Stout Street',
+    '180 (Lifestyle)'
+  ],
+  songsImage: [
+    'https://i.scdn.co/image/ab67616d0000b2732887f8c05b5a9f1cb105be29',
+    'https://i.scdn.co/image/ab67616d0000b273068ac4e1d8ea5e746ae2c690',
+    'https://i.scdn.co/image/ab67616d0000b273705079df9a25a28b452c1fc9'
+  ],
+  songsAuthor: [ 'Metro Boomin', 'Rx Papi', 'Morgan Wallen' ],
+  songsDuration: [ '3:28', '1:58', '3:09' ],
+  songsReleaseDate: [ '2018-11-06', '2021-11-19', '2023-03-03' ],
+  songsGenre: [ 'Non fornito', 'Non fornito', 'Non fornito' ],
+  tags: [ '1', '12', '123' ],
+  public: false,
+  createdAt: 1686668537537
+}
+
+-->
+<html>
+<head>
+    <%- include(global.appRoot + '/views/templates/global/header.ejs') %>
+</head>
+<body data-bs-theme="<%= global.theme %>">
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Modifica playlist</h3>
+        </div>
+        <form action="/user/playlists/edit/<%= playlist._id %>" method="POST">
+            <div class="card-body">
+                <div class="mb-3 row">
+                    <label class="col-2 col-form-label">ID</label>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="<%= playlist._id %>"
+                               value="<%= playlist._id %>" readonly disabled>
+                        <small class="form-hint">L'identificatore della playlist.</small>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-2 col-form-label required">Titolo</label>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="<%= playlist.title %>"
+                               value="<%= playlist.title %>" name="playListName" required>
+                        <small class="form-hint">Il titolo della playlist.</small>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-2 col-form-label required">Descrizione</label>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="<%= playlist.description %>"
+                               value="<%= playlist.description %>" name="playListDescription" required>
+                        <small class="form-hint">La descrizione della playlist.</small>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-2 col-form-label">Playlist pubblica</label>
+                    <div class="col">
+                        <div>
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input"
+                                       type="checkbox" <%= playlist.public === true ? 'checked' : '' %> name="public">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="mb-3 row">
+                    <label class="col-2 col-form-label">Canzoni</label>
+                    <div class="col">
+                        <div class="list-group card-list-group" id="songsList">
+                            <% for(let i = 0; i < playlist.songsId.length; i++ ){
+                                let year = playlist.songsReleaseDate[i].split('-')[0];
+                            %>
+                            <div class="list-group-item" id="song-<%= i %>">
+                                <input type="hidden" name="songId[]" value="<%= playlist.songsId[i] %>">
+                                <input type="hidden" name="songName[]" value="<%= playlist.songsName[i] %>">
+                                <input type="hidden" name="songImage[]" value="<%= playlist.songsImage[i] %>">
+                                <input type="hidden" name="songAuthor[]" value="<%= playlist.songsAuthor[i] %>">
+                                <input type="hidden" name="songDuration[]" value="<%= playlist.songsDuration[i] %>">
+                                <input type="hidden" name="songPreview[]" value="<%= playlist.songsPreview[i] %>">
+                                <input type="hidden" name="songReleaseDate[]"
+                                       value="<%= playlist.songsReleaseDate[i] %>">
+                                <input type="hidden" name="songGenre[]" value="<%= playlist.songsGenre[i] %>">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-auto fs-3"><%= i + 1 %></div>
+                                    <div class="col-auto">
+                                        <img src="<%= playlist.songsImage[i] %>" class="rounded"
+                                             alt="<%= playlist.songsName[i] %>"
+                                             width="40" height="40">
+                                    </div>
+                                    <div class="col"><%= playlist.songsName[i] %>
+                                        <div class="text-muted"><%= playlist.songsAuthor[i] %> - <%= year %>
+                                            - <%= playlist.songsGenre[i] %></div>
+                                    </div>
+                                    <div class="col-auto text-muted">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="icon icon-tabler icon-tabler-player-play" width="24" height="24"
+                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                             stroke-linecap="round" stroke-linejoin="round"
+                                             onclick="play(`<%= playlist.songsPreview[i] %>`)">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M7 4v16l13 -8z"></path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="icon icon-tabler icon-tabler-player-pause" width="24" height="24"
+                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                             stroke-linecap="round" stroke-linejoin="round"
+                                             onclick="pause(`<%= playlist.songsPreview[i] %>`)">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M6 5m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z"></path>
+                                            <path d="M14 5m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z"></path>
+                                        </svg>
+                                        &nbsp;
+                                        <%= playlist.songsDuration[i] %>
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="icon icon-tabler icon-tabler-trash" width="40" height="40"
+                                             viewBox="0 0 24 24" stroke-width="2" stroke="red" fill="none"
+                                             stroke-linecap="round" stroke-linejoin="round"
+                                             onclick="deleteMe(`song-<%= i %>`)">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M4 7l16 0"></path>
+                                            <path d="M10 11l0 6"></path>
+                                            <path d="M14 11l0 6"></path>
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Nome della canzone"
+                                   id="songSearchInput">
+                            <button class="btn" type="button" id="songSearch">Aggiungi</button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="mb-3 row">
+                    <label class="col-2 col-form-label">Tags</label>
+                    <div class="col">
+                        <div class="badges-list" id="tagsList">
+                            <%
+                            const colorArray = ["bg-blue", "bg-azure", "bg-indigo", "bg-purple", "bg-pink", "bg-red", "bg-orange", "bg-yellow", "bg-lime", "bg-green", "bg-teal", "bg-cyan"];
+                            for(let i = 0; i < playlist.tags.length; i++ ){
+                            %>
+                                <span class="badge <%= colorArray[Math.floor(Math.random() * colorArray.length)] %> d-flex">
+                                <%= playlist.tags[i] %>
+                                <input type="hidden" name="tag[]" value="<%= playlist.tags[i] %>">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-trash" width="40" height="40"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round" onclick="removeTag(this)">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M4 7l16 0"></path>
+                                    <path d="M10 11l0 6"></path>
+                                    <path d="M14 11l0 6"></path>
+                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                </svg>
+                            </span>
+
+                            <% } %>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Nome del tag"
+                                   id="tagInput">
+                            <button class="btn" type="button" id="tagAdd">Aggiungi</button>
+                        </div>
+                        <small class="form-hint">La lista dei tag definiti.</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-footer text-end">
+                <a href="/user/playlists/view/<%= playlist._id %>" class="btn btn-danger">Annulla</a>
+                <button type="submit" class="btn btn-primary">Modifica</button>
+            </div>
+            <div id="canzone" hidden="">
+
+            </div>
+        </form>
+    </div>
+</div>
+<%- include(global.appRoot + '/views/templates/global/footer.ejs') %>
+<script>
+
+    var songList = [<% for(let i = 0; i < playlist.songsId.length; i++ ){ %><%= '`' + playlist.songsId[i] + '`,' %><% } %>];
+    var tagsList = [<% for(let i = 0; i < playlist.tags.length; i++ ){ %><%= '`' + playlist.tags[i] + '`,' %><% } %>];
+    var addedTag = 0;
+
+    var songsCount = <%= playlist.songsId.length %>;
+
+    function deleteMe(elementId) {
+        if (songsCount === 1) {
+            iziToast.error({
+                title: 'Errore',
+                iconUrl: '/images/error.png',
+                message: 'La playlist deve contenere almeno una canzone.',
+                position: 'topRight'
+            });
+            return;
+        }
+
+        var element = document.getElementById(elementId);
+        var songId = element.querySelector("input[name='songId[]']").value;
+        songList.splice(songList.indexOf(songId), 1);
+        element.remove()
+        songsCount--;
+
+        // Reset counter
+        var parent = document.querySelectorAll(".list-group-item");
+        var songsCounter = 1;
+        for (var i = 0; i < parent.length; i++) {
+            parent[i].querySelector(".fs-3").innerHTML = songsCounter++;
+        }
+    }
+
+    $('#songSearch').on('click', function () {
+        var search = $('#songSearchInput').val();
+        var element = document.getElementById('songsList');
+
+        if (search.length <= 0)
+            return;
+
+        $.ajax({
+            url: '/api/get-song',
+            type: 'GET',
+            data: {title: search},
+            success: async function (songData) {
+                if (songData == null || songData.statusCode === 404) {
+                    iziToast.error({
+                        iconUrl: '/images/error.png',
+                        title: 'Errore',
+                        message: 'Canzone non trovata',
+                        position: 'topRight'
+                    });
+                    return;
+                }
+                if (songList.includes(songData.id)) {
+                    iziToast.error({
+                        iconUrl: '/images/error.png',
+                        title: 'Errore',
+                        message: 'Canzone già aggiunta',
+                        position: 'topRight'
+                    });
+                    return;
+                }
+                let data = [];
+                $('#canzone').html(`
+                <audio id="songg"
+                    controls
+                    src="${songData.preview_url}">
+                <a href="${songData.preview_url}">
+                    Download audio
+                </a>
+            </audio>
+                `)
+                console.log(songData.preview_url)
+                data['songId'] = songData.id;
+                data['titolo'] = songData.name;
+                data['autore'] = songData.artists[0].name;
+                data['logo'] = songData.album.images[0].url;
+                data['durata'] = new Date(songData.duration_ms);
+                data['releaseDate'] = songData.album.release_date;
+                data['songPreview'] = songData.preview_url;
+                data['genre'] = await getGenre(songData.artists[0].name);
+                //data['genre'] = "Non fornito";
+                data['durata'] = data['durata'].getMinutes() + ':' + (data['durata'].getSeconds() < 10 ? '0' + data['durata'].getSeconds() : data['durata'].getSeconds());
+                var divId = Math.floor(Math.random() * 1000000);
+                let year = data['releaseDate'].split('-')[0];
+                var song = `<div class="list-group-item" id="song-${divId}">
+                                <div class="row g-2 align-items-center">
+                                    <input type="hidden" name="songId[]" value="${data['songId']}">
+                                    <input type="hidden" name="songName[]" value="${data['titolo']}">
+                                    <input type="hidden" name="songImage[]" value="${data['logo']}">
+                                    <input type="hidden" name="songAuthor[]" value="${data['autore']}">
+                                    <input type="hidden" name="songDuration[]" value="${data['durata']}">
+                                    <input type="hidden" name="songReleaseDate[]" value="${data['releaseDate']}">
+                                    <input type="hidden" name="songGenre[]" value="${data['genre']}">
+                                    <input type="hidden" name="songPreview[]" value="${data['songPreview']}">
+                                    <div class="col-auto fs-3">${songsCount + 1}</div>
+                                    <div class="col-auto"><img src="${data['logo']}" class="rounded"
+                                                               alt="${data['titolo']}" width="40" height="40"></div>
+                                    <div class="col">${data['titolo']}
+                                    <div class="text-muted">${data['autore']} - ${year} - ${data['genre']}</div>
+                                    </div>
+                                    <div class="col-auto text-muted">
+                                                                    ${data['durata']}
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                             class="icon icon-tabler icon-tabler-trash" width="40" height="40"
+                                                                             viewBox="0 0 24 24" stroke-width="2" stroke="red" fill="none"
+                                                                             stroke-linecap="round" stroke-linejoin="round" onclick="deleteMe('song-${divId}')">
+                                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                            <path d="M4 7l16 0"></path>
+                                                                            <path d="M10 11l0 6"></path>
+                                                                            <path d="M14 11l0 6"></path>
+                                                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                                        </svg>
+                                                                </div>
+                                </div>
+                            </div>`
+
+                songList.push(data['songId']);
+                element.insertAdjacentHTML('beforeend', song);
+                songsCount++;
+                data['numero'] = data['numero'] + 1;
+            }
+        });
+    });
+
+    function removeTag(element) {
+        let value = element.parentNode.querySelector("input[name='tag[]']").value;
+        if (tagsList.length === 1) {
+            iziToast.error({
+                title: 'Errore',
+                iconUrl: '/images/error.png',
+                message: 'La playlist deve contenere almeno un tag.',
+                position: 'topRight'
+            });
+            return;
+        }
+        element.parentNode.remove();
+        tagsList.splice(tagsList.indexOf(value), 1);
+    }
+
+    $('#tagAdd').click(function () {
+        let tag = $('#tagInput').val();
+        if (tag.length <= 0)
+            return;
+
+        if (tagsList.includes(tag)) {
+            iziToast.error({
+                title: 'Errore',
+                iconUrl: '/images/error.png',
+                message: 'Tag già aggiunto.',
+                position: 'topRight'
+            });
+            return;
+        }
+
+        const colorArray = ["bg-blue", "bg-azure", "bg-indigo", "bg-purple", "bg-pink", "bg-red", "bg-orange", "bg-yellow", "bg-lime", "bg-green", "bg-teal", "bg-cyan"];
+        let tagElement = `<span class="badge ${colorArray[Math.floor(Math.random() * colorArray.length)]}">
+                                ${tag}
+                                <input type="hidden" name="tag[]" value="${tag}">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-trash" width="40" height="40"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round" onclick="removeTag(this)">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M4 7l16 0"></path>
+                                    <path d="M10 11l0 6"></path>
+                                    <path d="M14 11l0 6"></path>
+                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                </svg>
+                            </span>`;
+        $('#tagsList').append(tagElement);
+        tagsList.push(tag);
+        $('#tagInput').val('');
+    });
+
+    async function getGenre(autore) {
+        const maxLength = 20;
+        try {
+            var genres = "";
+            const artistData = await $.ajax({
+                url: '/api/get-artist',
+                type: 'GET',
+                data: {name: autore},
+            });
+
+            for (let i = 0; i < artistData.artists.items[0].genres.length; i++) {
+                genres += artistData.artists.items[0].genres[i] + ", ";
+            }
+
+            if (genres.length > maxLength) {
+                genres = genres.substring(0, maxLength - 3) + "...";
+            } else {
+                genres = genres.substring(0, genres.length - 2);
+            }
+
+            return genres;
+        } catch (error) {
+            console.error(error);
+            return "Non fornito";
+        }
+    }
+
+    var currentSong = null;
+
+    function play(link) {
+        if (link === 'null') {
+            iziToast.error({
+                title: 'Errore',
+                iconUrl: '/images/error.png',
+                message: 'Non è possibile riprodurre questo brano.',
+                position: 'topRight'
+            });
+            return;
+        }
+        currentSong = link;
+        let selector = $('#canzone');
+        let src = '';
+        try {
+            src = document.getElementById('audio').src;
+        } catch (e) {
+        }
+        if (src === link) {
+            document.getElementById('audio').play();
+            console.log('play 1');
+        } else {
+            selector.html(`<audio id="audio" src="${link}" controls autoplay/>`);
+            console.log('play 2');
+        }
+    }
+
+    function pause(link) {
+        if (link !== currentSong)
+            return
+        let audioElement = document.getElementById('audio');
+        audioElement.pause();
+    }
+
+</script>
+</body>
+</html>

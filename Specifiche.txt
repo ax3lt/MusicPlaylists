@@ -1,0 +1,24 @@
+Registrazione e login: - DA FINIRE, OK
+Pagina di registrazione per gli utenti con campi per l'indirizzo email, il nome utente, la password, le preferenze musicali, i gruppi musicali preferiti e le informazioni personali. - OK, DA FINIRE
+Pagina di login per gli utenti esistenti per accedere all'applicazione. OK
+
+
+Gestione dei dati utente:
+
+Pagina di profilo utente per visualizzare e modificare le informazioni personali, le preferenze musicali, i gruppi musicali preferiti e la password. OK
+Possibilità per l'utente di eliminare il proprio profilo. - OK
+
+
+Gestione delle playlist private:
+
+Pagina di creazione di una nuova playlist con campi per il titolo, la descrizione e i tag descrittivi. - OK
+Pagina di visualizzazione delle playlist private dell'utente con opzioni per la modifica e la cancellazione delle singole playlist. - OK
+Pagina di visualizzazione dei dettagli di una playlist privata, inclusi i titoli delle canzoni, gli artisti, i generi, le durate e gli anni di pubblicazione. - OK
+Possibilità di aggiungere nuove canzoni alla playlist, rimuovere canzoni esistenti e modificare le informazioni delle canzoni. - OK
+
+
+Gestione delle playlist pubbliche:
+
+Pagina di visualizzazione. - OK
+Opzioni di importazione. - DA IMPLEMENTARE
+Possibilità di cercare playlist pubbliche utilizzando criteri come i tag associati e i titoli delle canzoni. - OK

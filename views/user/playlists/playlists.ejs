@@ -1,0 +1,164 @@
+<html>
+<head>
+    <%- include(global.appRoot + '/views/templates/global/header.ejs') %>
+    <%- include(global.appRoot + '/views/templates/user/navbar.ejs') %>
+</head>
+<body data-bs-theme="<%= global.theme %>">
+<div class="container">
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h1>Playlists</h1>
+        </div>
+        <div class="col-auto ms-auto d-print-none">
+            <div class="btn-list">
+                <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+                   data-bs-target="#modal-report">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 5l0 14"></path>
+                        <path d="M5 12l14 0"></path>
+                    </svg>
+                    Crea nuova playlist
+                </a>
+            </div>
+        </div>
+        <br>
+    </div>
+    <br>
+    <div class="row row-gap-3">
+        <%if(playlists.length == 0)
+            {
+            %>
+            <center><h1 class="text-danger">Nessuna playlist creata</h1></center>
+        <%}else{
+        var data = [];
+        global.playListIdCounter = 0;
+        for(var i = 0; i < playlists.length; i++)
+        {data['id'] = playlists[i]._id;
+            data['nome'] = playlists[i].title;
+            data['descrizione'] = playlists[i].description;
+            data['logo'] = playlists[i].songsImage;
+            global.data = data;
+        %>
+            <%- include(global.appRoot + '/views/templates/user/playlists/singleList.ejs'); %>
+        <%
+            global.playListIdCounter += 4;
+        }}
+        %>
+
+    </div>
+
+</div>
+<div class="modal modal-blur fade" id="modal-report" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuova playlist</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/user/playlists/create" method="POST" id="newPlaylistForm" class="mb-0">
+                <div class="modal-body">
+                    <label class="form-label required">Nome</label>
+                    <input type="text" class="form-control" name="playListName" placeholder="Nome della playlist"
+                           id="playListName" required>
+                    <br>
+                    <label class="form-label required">Descrizione</label>
+                    <input type="text" class="form-control" name="playListDescription"
+                           placeholder="Descrizione della playlist" id="playListDescription">
+                    <br>
+                    <label class="form-check form-check-inline">
+                        <input name="public" class="form-check-input" type="checkbox">
+                        <span class="form-check-label">Playlist pubblica</span>
+                    </label>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label required">Aggiungi nuova canzone</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" placeholder="Nome della canzone"
+                               id="songSearchInput">
+                        <button class="btn" type="button" id="songSearch">Cerca</button>
+                    </div>
+                    <br>
+                    <label class="form-label">Lista canzoni aggiunte</label>
+                    <div id="listaCanzoni" class="list-group card-list-group">
+                        <pre class="bg-red" style="color: white">Nessuna canzone aggiunta</pre>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label required">Aggiungi tags</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" placeholder="Nome del tag"
+                               id="tagInput">
+                        <button class="btn" type="button" id="tagAdd">Aggiungi</button>
+                    </div>
+                    <br>
+                    <label class="form-label">Lista tags</label>
+                    <div id="noTagsAdded">
+                        <pre class="bg-red" style="color: white">Nessun tag aggiunto</pre>
+                    </div>
+                    <div id="listaTags" class="badges-list">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                        Annulla
+                    </button>
+                    <button class="btn btn-primary ms-auto" id="newPlaylistSubmit" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                             stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M12 5l0 14"></path>
+                            <path d="M5 12l14 0"></path>
+                        </svg>
+                        Crea nuova playlist
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include(global.appRoot + '/views/templates/global/footer.ejs') %>
+</body>
+
+<script src="/javascripts/playlists/addSearchedSong.js"></script>
+<script src="/javascripts/playlists/addTag.js"></script>
+
+<script>
+
+    var songList = [];
+    var tagsList = [];
+    var addedTag = 0;
+
+    $('#newPlaylistSubmit').click(function (e) {
+        e.preventDefault();
+        if (songList.length === 0) {
+            iziToast.error({
+                iconUrl: '/images/error.png',
+                title: 'Errore',
+                message: 'Inserisci almeno una canzone',
+                position: 'topRight'
+            });
+            return;
+        }
+
+        if (document.getElementById('playListName').value === '' || document.getElementById('playListDescription').value === '' || tagsList.length === 0) {
+            iziToast.error({
+                iconUrl: '/images/error.png',
+                title: 'Errore',
+                message: 'Inserisci tutti i campi obbligatori (*)',
+                position: 'topRight'
+            });
+            return;
+        }
+        $('#newPlaylistForm').submit();
+        songList = [];
+        tagsList = [];
+    });
+
+
+</script>
+
+</html>

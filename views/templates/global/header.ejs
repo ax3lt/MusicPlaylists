@@ -1,0 +1,40 @@
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;">
+<title>MusicPlaylist • <%= title %></title>
+<link rel="icon" type="image/gif/png" href="/images/logo.png">
+
+<link rel="stylesheet" href="https://izitoast.marcelodolza.com/css/iziToast.min.css">
+<script src="https://izitoast.marcelodolza.com/js/iziToast.min.js" type="text/javascript"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
+<%
+// Strumento gestione stack errori con iziToasts (global.messageStack)
+// Messaggi possono essere error, warning, success, info, va anche specificato l'icona da usare
+
+
+if(typeof global.messageStack !== "undefined" && global.messageStack.length > 0){
+global.messageStack.forEach(function (message) {
+        %>
+        <script id="temp">
+            $(document).ready(function (){
+                iziToast.<%= message.type %>({
+                    iconUrl: '/images/<%= message.type %>.png',
+                    title: '<%= message.title  ?? '' %>',
+                    message: '<%= message.message ?? '' %>',
+                    position: '<%= message.position ?? 'topRight'%>'
+                });
+            })
+            document.getElementById('temp').remove();
+        </script>
+<%
+});
+    global.messageStack = [];
+}
+%>

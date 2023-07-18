@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include(global.appRoot + '/views/templates/global/header.ejs') %>
+    <style>
+        .main h1, .main p {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 40rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .main h1 {
+            margin-top: 20px;
+            font-size: 50px;
+            font-weight: 700;
+            justify-content: center;
+            font-family: 'Roboto', sans-serif;
+            color: <%= global.theme === 'dark' ? 'white' :  '#232b42'%>;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .main p {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            color: <%= global.theme === 'dark' ? '#b4b4c0' :  '#515671'%>;
+            text-align: center;
+        }
+    </style>
+</head>
+<body data-bs-theme="<%= global.theme %>">
+<div class="mb-3">
+    <header class="navbar navbar-expand-md d-print-none">
+        <div class="container-xl">
+            <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+                <style>
+                    .navbar-brand-image {
+                        filter: brightness(1) invert(0) !important;
+                    }
+                </style>
+                <a href="/">
+                    <img src="/images/logo.png" width="110" height="32" alt="MusicPlaylists" class="navbar-brand-image">
+                    MusicPlaylists
+                </a>
+            </h1>
+            <div class="flex-row order-md-last">
+                <a class="btn" href="/auth/login">
+                    Login
+                </a>
+                &nbsp;
+                <a class="btn" href="/auth/register">
+                    Registazione
+                </a>
+            </div>
+
+        </div>
+    </header>
+</div>
+<div class="main">
+    <h1>Music Playlist Sharing Website</h1>
+    <div class="container">
+        <p>
+            Un'applicazione web che ti consente di gestire le tue playlist
+            musicali e condividerle con altri utenti.
+        </p>
+    </div>
+    <div style="text-align: center">
+        <a href="/auth/register" class="btn btn-primary" style="width: 100px; height: 50px">Entra ora!</a>
+    </div>
+    <div style="text-align: center">
+        <img src="/images/landing_preview.png"
+             style="margin-top: 50px; width: 60%; border: 1px solid #dadfe5; border-top-right-radius: 10px; border-top-left-radius: 10px ">
+    </div>
+</div>
+</body>
+</html>

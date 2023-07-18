@@ -1,0 +1,350 @@
+<html>
+<head>
+    <%- include(global.appRoot + '/views/templates/global/header.ejs') %>
+    <%- include(global.appRoot + '/views/templates/user/navbar.ejs') %>
+</head>
+<body data-bs-theme="<%= global.theme %>">
+<div class="container">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-3 d-none d-md-block border-end">
+                <div class="card-body">
+                    <h4 class="subheader">Impostazioni profilo</h4>
+                    <div class="list-group list-group-transparent">
+                        <a href="/user/settings"
+                           class="list-group-item list-group-item-action d-flex align-items-center">Il mio
+                            account</a>
+                        <a href="/user/settings/preferences"
+                           class="list-group-item list-group-item-action d-flex align-items-center active">Le mie
+                            preferenze</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col d-flex flex-column">
+                <form action="/user/settings/changePreferences" method="POST" id="preferencesForm">
+                    <div class="card-body">
+                        <h2 class="mb-4">Impostazioni preferenze</h2>
+                        <h3 class="card-title mt-4">Artisti preferiti</h3>
+                        <div class="col-md">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="list-group list-group-flush overflow-auto" style="max-height: 35rem">
+                                        <div class="list-group-item" id="artistsContainer">
+                                            <% if(user.preferences[0].artists.length === 0){ %>
+                                                ⚠️ Nessun artista inserito ⚠️
+                                            <% } else {
+                                            user.preferences[0].artists.forEach(element =>{
+                                                const suffixes = ['', 'k', 'M', 'B', 'T']; // You can add more suffixes if needed
+                                                const suffixIndex = Math.floor(Math.log10(element.followers) / 3); // Determine the appropriate suffix index
+                                                const scaledCount = element.followers / Math.pow(1000, suffixIndex); // Scale the count
+                                                const formattedCount = scaledCount % 1 === 0 ? scaledCount.toFixed(0) : scaledCount.toFixed(1); // Keep decimal places if necessary
+                                                const formattedFollowers = `${formattedCount} ${suffixes[suffixIndex]}`;
+                                            %>
+                                            <div class="row mb-2">
+                                                <input type="hidden" name="id[]" value="<%= element.id %>">
+                                                <input type="hidden" name="image[]" value="<%= element.image %>">
+                                                <input type="hidden" name="name[]" value="<%= element.name %>">
+                                                <input type="hidden" name="userUrl[]" value="<%= element.userUrl %>">
+                                                <input type="hidden" name="followers[]"
+                                                       value="<%= element.followers %>">
+                                                <div class="col-auto">
+                                                    <a href="<%= element.image %>" target="_blank">
+                                                        <img class="avatar" src="<%= element.image %>">
+                                                    </a>
+                                                </div>
+                                                <div class="col text-truncate">
+                                                    <a href="<%= element.userUrl %>" class="text-body d-block"
+                                                       target="_blank"><%= element.name %></a>
+                                                    <div class="text-muted text-truncate mt-n1">
+                                                        <%= formattedFollowers %> followers
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto align-self-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         class="icon icon-tabler icon-tabler-trash"
+                                                         width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                                                         stroke="red"
+                                                         fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                         onclick="deleteArtist(this)">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path d="M4 7l16 0"></path>
+                                                        <path d="M10 11l0 6"></path>
+                                                        <path d="M14 11l0 6"></path>
+                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <%
+                                            })
+                                            } %>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-md input-group">
+                                            <input type="text" class="form-control " placeholder="Nome dell'artista"
+                                                   id="artistSearchInput">
+                                            <button class="btn" type="button" id="artistSearch">Aggiungi</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="card-title mt-4">Generi preferiti</h3>
+                            <div class="col-md">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="list-group list-group-flush overflow-auto"
+                                             style="max-height: 35rem">
+                                            <div class="list-group-item badges-list" id="genresContainer">
+                                                <% if(user.preferences[0].genres.length === 0){ %>
+                                                    ⚠️ Nessun genere inserito ⚠️
+                                                <% } else
+                                                {
+                                                    const colorArray = ["bg-blue", "bg-azure", "bg-indigo", "bg-purple", "bg-pink", "bg-red", "bg-orange", "bg-yellow", "bg-lime", "bg-green", "bg-teal", "bg-cyan"];
+                                                user.preferences[0].genres.forEach(element =>{
+                                                    var color = colorArray[Math.floor(Math.random() * colorArray.length)];
+                                                %>
+                                                <span class="badge <%=color%> d-flex">
+                                                        <%= element %>
+                                                        <input type="hidden" name="genres[]" value="<%= element %>">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                             class="icon icon-tabler icon-tabler-trash" width="40"
+                                                             height="40"
+                                                             viewBox="0 0 24 24" stroke-width="2" stroke="white"
+                                                             fill="none"
+                                                             stroke-linecap="round" stroke-linejoin="round"
+                                                             onclick="removeTag(this)">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                            <path d="M4 7l16 0"></path>
+                                                            <path d="M10 11l0 6"></path>
+                                                            <path d="M14 11l0 6"></path>
+                                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                        </svg>
+                                                    </span>
+                                                <% })} %>
+                                            </div>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col-md input-group">
+                                                <input type="text" class="form-control" placeholder="Nome del genere"
+                                                       id="genreInput">
+                                                <button class="btn" type="button" id="genreAdd">Aggiungi</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent mt-auto" style="border-top: 0; !important;">
+                        <div class="btn-list justify-content-end">
+                            <button type="submit" class="btn btn-primary">
+                                Salva
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+
+    var artistIds = [
+        <% user.preferences[0].artists.forEach(element => { %>
+        "<%= element.id %>",
+        <% }) %>];
+    var genres = [
+        <% user.preferences[0].genres.forEach(element => { %>
+        "<%= element %>",
+        <% }) %>
+    ];
+
+
+    $('#genreAdd').on('click', function () {
+        let genre = $('#genreInput').val();
+        if (genre.length <= 0) {
+            iziToast.error({
+                iconUrl: '/images/error.png',
+                title: 'Errore',
+                message: 'Inserisci un genere',
+                position: 'topRight'
+            });
+            return;
+        }
+
+        if (genres.includes(genre)) {
+            iziToast.error({
+                iconUrl: '/images/error.png',
+                title: 'Errore',
+                message: 'Genere già presente',
+                position: 'topRight'
+            });
+            return;
+        }
+
+
+        if(genres.length === 0)
+        {
+            $('#genresContainer').html("");
+        }
+
+        const colorArray = ["bg-blue", "bg-azure", "bg-indigo", "bg-purple", "bg-pink", "bg-red", "bg-orange", "bg-yellow", "bg-lime", "bg-green", "bg-teal", "bg-cyan"];
+        let block = `<span class="badge ${colorArray[Math.floor(Math.random() * colorArray.length)]}">
+                                ${genre}
+                                <input type="hidden" name="genres[]" value="${genre}">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-trash" width="40" height="40"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round" onclick="removeTag(this)">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M4 7l16 0"></path>
+                                    <path d="M10 11l0 6"></path>
+                                    <path d="M14 11l0 6"></path>
+                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                </svg>
+                            </span>`;
+        $('#genresContainer').append(block);
+        genres.push(genre);
+    });
+
+
+    function removeTag(element) {
+        if (genres.length <= 1) {
+            iziToast.error({
+                iconUrl: '/images/error.png',
+                title: 'Errore',
+                message: 'Devi inserire almeno un genere',
+                position: 'topRight'
+            });
+            return;
+        }
+        let tag = $(element).parent().find('input').val();
+        genres.splice(genres.indexOf(tag), 1);
+        $(element).parent().remove();
+    }
+
+    $('#artistSearch').on('click', function () {
+        var search = $('#artistSearchInput').val();
+        if (search.length <= 0) {
+            iziToast.error({
+                iconUrl: '/images/error.png',
+                title: 'Errore',
+                message: 'Inserisci un artista',
+                position: 'topRight'
+            });
+            return;
+        }
+
+        $.ajax({
+            url: '/api/get-artist',
+            type: 'GET',
+            data: {name: search},
+            success: function (artistData) {
+                if (artistData === null || artistData === undefined || artistData.artists.items.length === 0 || artistData.statusCode === 404) {
+                    iziToast.error({
+                        iconUrl: '/images/error.png',
+                        title: 'Errore',
+                        message: 'Artista non trovato',
+                        position: 'topRight'
+                    });
+                    return;
+                }
+
+                let id = artistData.artists.items[0].id;
+                if (artistIds.includes(id)) {
+                    iziToast.error({
+                        iconUrl: '/images/error.png',
+                        title: 'Errore',
+                        message: 'Artista già presente',
+                        position: 'topRight'
+                    });
+                    return;
+                }
+
+
+                let followers = artistData.artists.items[0].followers.total;
+                let image = artistData.artists.items[0].images[0].url;
+                let name = artistData.artists.items[0].name;
+                let userUrl = artistData.artists.items[0].external_urls.spotify;
+
+
+                var block = `
+                                <div class="row mb-2">
+                                    <input type="hidden" name="id[]" value="${id}">
+                                    <input type="hidden" name="image[]" value="${image}">
+                                    <input type="hidden" name="name[]" value="${name}">
+                                    <input type="hidden" name="userUrl[]" value="${userUrl}">
+                                    <input type="hidden" name="followers[]" value="${followers}">
+                                    <div class="col-auto">
+                                        <a href="${image}" target="_blank">
+                                            <img class="avatar" src="${image}">
+                                        </a>
+                                    </div>
+                                    <div class="col text-truncate">
+                                        <a href="${userUrl}" class="text-body d-block" target="_blank">${name}</a>
+                                        <div class="text-muted text-truncate mt-n1">${formatFollowersCount(followers)} followers</div>
+                                    </div>
+                                    <div class="col-auto align-self-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
+                                                width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="red"
+                                                fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="deleteArtist(this)">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M4 7l16 0"></path>
+                                                <path d="M10 11l0 6"></path>
+                                                <path d="M14 11l0 6"></path>
+                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                    </svg>
+                                    </div>
+                                </div>
+                `;
+
+                if(artistIds.length === 0)
+                    $('#artistsContainer').html('');
+
+                document.getElementById('artistsContainer').insertAdjacentHTML('beforeend', block);
+                artistIds.push(id);
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+    function deleteArtist(element) {
+        if (artistIds.length <= 1) {
+            iziToast.error({
+                iconUrl: '/images/error.png',
+                title: 'Errore',
+                message: 'Devi avere almeno un artista preferito',
+                position: 'topRight'
+            });
+            return;
+        }
+
+        var id = element.parentElement.parentElement.querySelector('input[name="id[]"]').value;
+
+        artistIds.splice(artistIds.indexOf(id), 1);
+
+        element.parentElement.parentElement.remove();
+    }
+
+
+    function formatFollowersCount(count) {
+        const suffixes = ['', 'k', 'M', 'B', 'T']; // You can add more suffixes if needed
+        const suffixIndex = Math.floor(Math.log10(count) / 3); // Determine the appropriate suffix index
+        const scaledCount = count / Math.pow(1000, suffixIndex); // Scale the count
+        const formattedCount = scaledCount % 1 === 0 ? scaledCount.toFixed(0) : scaledCount.toFixed(1); // Keep decimal places if necessary
+
+        return `${formattedCount} ${suffixes[suffixIndex]}`;
+    }
+
+</script>
+<%- include(global.appRoot + '/views/templates/global/footer.ejs') %>
+</body>
+</html>

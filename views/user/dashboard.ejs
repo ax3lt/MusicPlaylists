@@ -1,0 +1,138 @@
+<html>
+<head>
+    <%- include(global.appRoot + '/views/templates/global/header.ejs') %>
+    <%- include(global.appRoot + '/views/templates/user/navbar.ejs') %>
+</head>
+<body data-bs-theme="<%= global.theme %>">
+<div class="container">
+    <h1>Dashboard</h1>
+    <br>
+    <div class="col-12">
+        <div class="row row-cards">
+            <div class="col-sm-6 col-lg-3">
+                <div class="card card-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                            <span class="bg-primary text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-playlist-add" width="24" height="24"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M19 8h-14"></path>
+                                   <path d="M5 12h9"></path>
+                                   <path d="M11 16h-6"></path>
+                                   <path d="M15 16h6"></path>
+                                   <path d="M18 13v6"></path>
+                                </svg>
+                            </span>
+                            </div>
+                            <div class="col">
+                                <div style="font-weight: 600">
+                                    Playlists create
+                                </div>
+                                <div class="text-muted">
+                                    <%= data['playlistsCreated'] %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card card-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                            <span class="bg-green text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/shopping-cart -->
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-chart-pie-filled" width="24" height="24"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M9.883 2.207a1.9 1.9 0 0 1 2.087 1.522l.025 .167l.005 .104v7a1 1 0 0 0 .883 .993l.117 .007h6.8a2 2 0 0 1 2 2a1 1 0 0 1 -.026 .226a10 10 0 1 1 -12.27 -11.933l.27 -.067l.11 -.02z"
+                                         stroke-width="0" fill="currentColor"></path>
+                                   <path d="M14 3.5v5.5a1 1 0 0 0 1 1h5.5a1 1 0 0 0 .943 -1.332a10 10 0 0 0 -6.11 -6.111a1 1 0 0 0 -1.333 .943z"
+                                         stroke-width="0" fill="currentColor"></path>
+                                </svg>
+                            </span>
+                            </div>
+                            <div class="col">
+                                <div class="font-weight-medium">
+                                    Canzoni nelle playlist
+                                </div>
+                                <div class="text-muted">
+                                    <%= data['songsAdded'] %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card card-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                            <span class="bg-twitter text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart"
+                                   width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                   fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+                              </svg>
+                            </span>
+                            </div>
+                            <div class="col">
+                                <div class="font-weight-medium">
+                                    Likes dati
+                                </div>
+                                <div class="text-muted">
+                                    <%=data['likesGiven']%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card card-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                            <span class="bg-facebook text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/brand-facebook -->
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-world-heart"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M21 12a9 9 0 1 0 -9.679 8.974"></path>
+                                   <path d="M3.6 9h16.8"></path>
+                                   <path d="M3.6 15h6.9"></path>
+                                   <path d="M11.5 3a17 17 0 0 0 0 18"></path>
+                                   <path d="M12.5 3a16.983 16.983 0 0 1 2.556 8.136"></path>
+                                   <path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z"></path>
+                                </svg>
+                            </span>
+                            </div>
+                            <div class="col">
+                                <div class="font-weight-medium">
+                                    Likes ricevuti
+                                </div>
+                                <div class="text-muted">
+                                    <%=data['likesReceived']%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include(global.appRoot + '/views/templates/global/footer.ejs') %>
+</body>
+</html>

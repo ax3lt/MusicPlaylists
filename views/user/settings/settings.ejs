@@ -1,0 +1,314 @@
+<html>
+<head>
+    <%- include(global.appRoot + '/views/templates/global/header.ejs') %>
+    <%- include(global.appRoot + '/views/templates/user/navbar.ejs') %>
+</head>
+<body data-bs-theme="<%= global.theme %>">
+<div class="container">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-3 d-none d-md-block border-end">
+                <div class="card-body">
+                    <h4 class="subheader">Impostazioni profilo</h4>
+                    <div class="list-group list-group-transparent">
+                        <a href="/user/settings"
+                           class="list-group-item list-group-item-action d-flex align-items-center active">Il mio
+                            account</a>
+                        <a href="/user/settings/preferences" class="list-group-item list-group-item-action d-flex align-items-center">Le mie
+                            preferenze</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col d-flex flex-column">
+                <div class="card-body">
+                    <h2 class="mb-4">Il mio account</h2>
+                    <h3 class="card-title">Dettagli profilo</h3>
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <img class="avatar avatar-xl rounded-circle overflow-hidden border border-2" id="avatar" src="<%= user['personalInfo'][0]['propic'] %>">
+                        </div>
+                        <div class="col-auto">
+                            <input type="file" id="inputImgPicker" hidden accept="image/png, image/jpeg">
+                            <button class="btn" onclick="pickImage()">
+                                Cambia immagine
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-secondary" onclick="resetImage()">
+                                Ripristina
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary" onclick="saveImage()">
+                                Salva
+                            </button>
+                        </div>
+                    </div>
+                    <h3 class="card-title mt-4">Le mie informazioni</h3>
+                    <form action="/user/settings/changeInfo" method="POST">
+                        <div class="row g-3">
+                            <div class="col-md">
+                                <div class="form-label">Email</div>
+                                <input type="text" class="form-control" value="<%= user['email'] %>" readonly disabled>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-label">Username</div>
+                                <input type="text" class="form-control" value="<%= user['username'] %>" readonly disabled>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row g-3">
+                            <div class="col-md">
+                                <div class="form-label">Nome</div>
+                                <input name="name" type="text" class="form-control"
+                                       value="<%= user['personalInfo'][0]['firstName'] %>"
+                                       placeholder="<%= user['personalInfo'][0]['firstName'] !== '' ? user['personalInfo'][0]['firstName'] : 'Inserisci il nome' %>">
+                            </div>
+                            <div class="col-md">
+                                <div class="form-label">Cognome</div>
+                                <input name="surname" type="text" class="form-control"
+                                       value="<%= user['personalInfo'][0]['lastName'] %>"
+                                       placeholder="<%= user['personalInfo'][0]['lastName'] !== '' ? user['personalInfo'][0]['lastName'] : 'Inserisci il cognome' %>">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row g-3">
+                            <div class="col-md">
+                                <div class="form-label">Età</div>
+                                <input name="age" type="number" class="form-control"
+                                       value="<%= user['personalInfo'][0]['age'] %>"
+                                       placeholder="<%= user['personalInfo'][0]['age'] !== '' ? user['personalInfo'][0]['age'] : 'Inserisci l\'età' %>">
+                            </div>
+                            <div class="col-md">
+                                <div class="form-label">Genere</div>
+                                <input name="gender" type="text" class="form-control"
+                                       value="<%= user['personalInfo'][0]['gender'] %>"
+                                       placeholder="<%= user['personalInfo'][0]['gender'] !== '' ? user['personalInfo'][0]['gender'] : 'Inserisci il genere' %>">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row g-3">
+                            <div class="col-md">
+                                <div class="form-label">Indirizzo</div>
+                                <input name="address" type="text" class="form-control"
+                                       value="<%= user['personalInfo'][0]['address'] %>"
+                                       placeholder="<%= user['personalInfo'][0]['address'] !== '' ? user['personalInfo'][0]['address'] : 'Inserisci il tuo indirizzo' %>">
+                            </div>
+                            <div class="col-md">
+                                <div class="form-label">Telefono</div>
+                                <input name="phone" type="tel" class="form-control"
+                                       value="<%= user['personalInfo'][0]['phone'] %>"
+                                       placeholder="<%= user['personalInfo'][0]['phone'] !== '' ? user['personalInfo'][0]['phone'] : 'Inserisci il numero di telefono' %>">
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent mt-auto">
+                            <div class="btn-list justify-content-end">
+                                <button type="reset" class="btn">
+                                    Annulla
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    Salva
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form action="/user/settings/changePassword" method="POST" id="changePswForm">
+                        <h3 class="card-title mt-4">Cambia password</h3>
+                        <div class="row g-3">
+                            <div class="col-md">
+                                <div class="form-label">Password attuale</div>
+                                <input id="oldPsw" name="oldPsw" type="password" class="form-control"
+                                       placeholder="••••••••••••">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row g-3">
+                            <div class="col-md">
+                                <div class="form-label">Nuova password</div>
+                                <input id="newPsw" name="newPsw" type="password" class="form-control"
+                                       placeholder="••••••••••••">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row g-3">
+                            <div class="col-md">
+                                <div class="form-label">Conferma nuova password</div>
+                                <input id="newPsw2" name="newPsw2" type="password" class="form-control"
+                                       placeholder="••••••••••••">
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-transparent mt-auto">
+                            <div class="btn-list justify-content-end">
+                                <button type="reset" class="btn">
+                                    Annulla
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Salva
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="card">
+                        <h5 class="card-header">Cancella Account</h5>
+                        <div class="card-body">
+                            <div class="mb-3 col-12 mb-0">
+                                <div class="alert alert-danger">
+                                    <h6 class="alert-heading fw-bold mb-1">Attenzione!</h6>
+                                    <p class="mb-0">Una volta cancellato l'account, non potrai più accedere al
+                                        sito.</p>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-12 mb-0">
+                                <form id="formAccountDeactivation" type="GET" action="/user/settings/deleteAccount">
+                                    <div class="form-check mb-3">
+                                        <input type="hidden" name="id" value="1">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="accountActivation" id="accountActivation">
+                                        <label class="form-check-label" for="accountActivation">Confermo la
+                                            cancellazione
+                                            dell'account</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Cancella account</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const currentImage = "<%= user['personalInfo'][0]['propic'] %>";
+
+        function resetImage() {
+            document.getElementById('avatar').src = currentImage;
+        }
+
+        function pickImage() {
+            document.getElementById('inputImgPicker').click();
+        }
+
+        document.getElementById('inputImgPicker').addEventListener('change', function () {
+            var image = this.files[0];
+            var container = document.getElementById('avatar');
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                container.src = e.target.result;
+            }
+            reader.readAsDataURL(image);
+        });
+
+        function saveImage() {
+            var image = encodeURIComponent(document.getElementById('avatar').src)
+            if (document.getElementById('avatar').src === currentImage) {
+                iziToast.error({
+                    iconUrl: '/images/error.png',
+                    title: 'Errore cambio immagine',
+                    message: 'Le immagini sono le stesse',
+                    position: 'topRight'
+                });
+                return;
+            }
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/user/settings/changeImage", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("image=" + image);
+
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4) {
+                    if (xhttp.status === 200) {
+                        iziToast.success({
+                            iconUrl: '/images/success.png',
+                            title: 'Immagine cambiata',
+                            message: 'Immagine cambiata con successo',
+                            position: 'topRight'
+                        });
+                        setTimeout(function () {
+                            window.location.reload()
+                        }, 2000);
+                    } else {
+                        iziToast.error({
+                            iconUrl: '/images/error.png',
+                            title: 'Errore cambio immagine',
+                            message: xhttp.statusText,
+                            position: 'topRight'
+                        });
+                    }
+                }
+            };
+        }
+
+        document.getElementById("changePswForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            var oldPsw = document.getElementById('oldPsw').value;
+            var newPsw = document.getElementById('newPsw').value;
+            var newPsw2 = document.getElementById('newPsw2').value;
+            if (newPsw.length < 8 || newPsw2.length < 8 || oldPsw.length < 8) {
+                iziToast.error({
+                    iconUrl: '/images/error.png',
+                    title: 'Errore cambio password',
+                    message: 'Riempire tutti i campi (minimo 8 caratteri)',
+                    position: 'topRight'
+                });
+                return;
+            }
+            if (newPsw !== newPsw2) {
+                iziToast.error({
+                    iconUrl: '/images/error.png',
+                    title: 'Errore cambio password',
+                    message: 'Le password non coincidono',
+                    position: 'topRight'
+                });
+                return;
+            }
+
+
+            $.ajax({
+                url: '/user/settings/changePassword',
+                method: 'POST',
+                data: {
+                    oldPsw: oldPsw,
+                    newPsw: newPsw,
+                    newPsw2: newPsw2,
+                },
+                success: function (response) {
+                    iziToast.success({
+                        iconUrl: '/images/success.png',
+                        title: 'Password cambiata con successo',
+                        position: 'topRight'
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    iziToast.error({
+                        iconUrl: '/images/error.png',
+                        title: 'Errore cambio password',
+                        message: JSON.parse(jqXHR.responseText)['error'],
+                        position: 'topRight'
+                    });
+                }
+            });
+        });
+
+
+        $('#formAccountDeactivation').submit(function (e){
+            e.preventDefault()
+            var accountActivation = document.getElementById('accountActivation').checked;
+            if (!accountActivation) {
+                iziToast.error({
+                    iconUrl: '/images/error.png',
+                    title: 'Errore cancellazione account',
+                    message: 'Devi confermare la cancellazione dell\'account',
+                    position: 'topRight'
+                });
+                return;
+            }
+            $('#formAccountDeactivation').unbind('submit').submit()
+        })
+
+    </script>
+    <%- include(global.appRoot + '/views/templates/global/footer.ejs') %>
+</body>
+</html>

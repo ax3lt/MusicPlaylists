@@ -1,0 +1,110 @@
+<html>
+<head>
+    <%- include(global.appRoot + '/views/templates/global/header.ejs') %>
+    <%- include(global.appRoot + '/views/templates/user/navbar.ejs') %>
+</head>
+<body data-bs-theme="<%= global.theme %>">
+<div class="container">
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h1>Playlists</h1>
+        </div>
+        <div class="col-auto ms-auto d-print-none">
+            <div class="row g-1">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Nome, titoli, autori, tags..." id="searchInput">
+                </div>
+                <div class="col-auto" id="search">
+                    <a href="javascript:void(0)" class="btn btn-icon" aria-label="Button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row row-gap-3">
+        <% if(playlists.length == 0)
+        {
+        %>
+            <center><h1 class="text-danger">Nessuna playlist pubblica trovata</h1></center>
+        <% }else{
+            var data = [];
+            global.playListIdCounter = 0;
+        for(var i = 0; i < playlists.length; i++) {
+            data['id'] = playlists[i]._id;
+            data['nome'] = playlists[i].title;
+            data['infos'] = playlists[i].user[0].username + ' - ' + playlists[i].user[0].email;
+            data['logo'] = playlists[i].songsImage;
+            data['nLikes'] = 0;
+            data['like'] = false;
+            if (playlists[i].likedBy)
+            {
+                data['nLikes'] = playlists[i].likedBy.length;
+                data['like'] = playlists[i].likedBy.includes(user._id);
+            }
+            global.data = data;
+        %>
+        <%- include(global.appRoot + '/views/templates/user/sharings/singleList.ejs'); %>
+        <%
+            global.playListIdCounter += 4;
+        }}
+        %>
+
+    </div>
+</div>
+<script>
+    $('#search').on('click', function (){
+       let url = new URL(window.location.href);
+       url.searchParams.set('search', $('#searchInput').val());
+       window.location.href = url.href;
+    });
+
+    function like(id)
+    {
+        let unfilled = `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg>`;
+        let filled = `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z" stroke-width="0" fill="currentColor"></path></svg>`;
+        let switcher;
+        let selector = $('#like-' + id);
+        let nLikes = parseInt(selector.find('.likes-count').text());
+        if(selector.find('.svg-enclosure').children().hasClass('icon-tabler-heart-filled'))
+        {
+            selector.find('.svg-enclosure').html(unfilled);
+            nLikes--;
+            switcher = 0;
+        }else{
+            selector.find('.svg-enclosure').html(filled);
+            nLikes++;
+            switcher = 1;
+        }
+        if(nLikes !== 0)
+            selector.find('.likes-enclosure').removeAttr('hidden')
+        else
+            selector.find('.likes-enclosure').attr('hidden', 'hidden');
+        selector.find('.likes-count').text(nLikes);
+
+        $.ajax({
+            url: '/user/sharings/like/' + id + '/' + (switcher === 1 ? 'like' : 'dislike'),
+            type: 'GET',
+            success: function (data){
+                iziToast.success({
+                    iconUrl: '/images/success.png',
+                    title: 'Successo',
+                    message: data.message,
+                    position: 'topRight'
+                });
+            },
+            error: function (err){
+                iziToast.error({
+                    iconUrl: '/images/error.png',
+                    title: 'Errore',
+                    message: err.responseJSON.message, // Modifica questa riga
+                    position: 'topRight'
+                });
+            }
+        })
+    }
+</script>
+<%- include(global.appRoot + '/views/templates/global/footer.ejs') %>
+</body>
+</html>
