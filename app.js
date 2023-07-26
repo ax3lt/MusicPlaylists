@@ -9,10 +9,9 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
 
 
-var mongo;
 new mongoClient("mongodb://cloud1.ax3lt.com:20008").connect()
     .then((client) => {
-        mongo = client;
+        global.mongoDB = client;
     }).catch((err) => {
         process.exit(1);
     });
