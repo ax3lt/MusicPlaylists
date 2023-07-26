@@ -38,6 +38,7 @@ $('#tagAdd').on('click', function () {
     element.insertAdjacentHTML('beforeend', hidden);
     element.insertAdjacentHTML('beforeend', tag);
     tagsList.push(tagInput);
+    $('#tagInput').val('');
 
     addedTag++;
 });

@@ -74,6 +74,7 @@ $('#songSearch').on('click', function () {
             songList.push(data['songId']);
             element.insertAdjacentHTML('beforeend', song);
             data['numero'] = data['numero'] + 1;
+            $('#songSearchInput').val('');
         }
     });
 });

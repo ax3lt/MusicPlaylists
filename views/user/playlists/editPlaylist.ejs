@@ -272,7 +272,6 @@
                 </a>
             </audio>
                 `)
-                console.log(songData.preview_url)
                 data['songId'] = songData.id;
                 data['titolo'] = songData.name;
                 data['autore'] = songData.artists[0].name;
@@ -321,6 +320,7 @@
                 songList.push(data['songId']);
                 element.insertAdjacentHTML('beforeend', song);
                 songsCount++;
+                $('#songSearchInput').val('');
                 data['numero'] = data['numero'] + 1;
             }
         });
@@ -425,10 +425,8 @@
         }
         if (src === link) {
             document.getElementById('audio').play();
-            console.log('play 1');
         } else {
             selector.html(`<audio id="audio" src="${link}" controls autoplay/>`);
-            console.log('play 2');
         }
     }
 
