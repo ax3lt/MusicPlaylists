@@ -9,12 +9,11 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
 
 
+var mongo;
 new mongoClient("mongodb://cloud1.ax3lt.com:20008").connect()
     .then((client) => {
-        console.info("INFO: Connessione al database effettuata con successo");
-        global.mongoDB = client; // Assign the client object directly
+        mongo = client;
     }).catch((err) => {
-        console.error("ERROR: Errore durante la connessione al db");
         process.exit(1);
     });
 global.theme = "light"
@@ -33,8 +32,9 @@ app.set('view cache', false); // Disable cache for development
 
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.json({limit: '50mb', extended: true}));
+app.use(express.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(express.text({ limit: '20mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({

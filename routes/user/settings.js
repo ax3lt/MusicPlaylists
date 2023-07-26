@@ -15,6 +15,16 @@ router.get('/preferences', function (req, res, next) {
 });
 
 router.post('/changeImage', async function (req, res, next) {
+    if(req.body.image === undefined)
+    {
+        global.messageStack.push({
+            type: 'error',
+            title: 'Errore!',
+            message: 'Devi completare tutti i campi!',
+            position: 'topRight'
+        });
+        return res.redirect('/user/settings');
+    }
     var image = req.body.image;
     req.session.user.personalInfo[0].propic = image;
 
@@ -30,7 +40,17 @@ router.post('/changeImage', async function (req, res, next) {
     res.status(200).json({"success": "Immagine cambiata con successo!"});
 });
 
-router.post('/changePassword', function (req, res, next) {
+router.post('/changePassword', function (req, res) {
+    if(req.body.oldPsw === undefined || req.body.newPsw === undefined || req.body.newPsw2 === undefined)
+    {
+        global.messageStack.push({
+            type: 'error',
+            title: 'Errore!',
+            message: 'Devi completare tutti i campi!',
+            position: 'topRight'
+        });
+        return res.redirect('/user/settings');
+    }
     var oldPassword = req.body.oldPsw;
     var newPassword = req.body.newPsw;
     var newPassword2 = req.body.newPsw2;
@@ -103,12 +123,24 @@ router.post('/changeInfo', async function (req, res, next) {
 });
 
 router.get('/deleteAccount', async function (req, res, next) {
+
+    await global.mongoDB.db('musicPlaylists').collection("playlists")
+        .updateMany(
+            {
+                'userId': req.session.user._id,
+            },
+            {
+                $set: {public: false}
+            }
+        );
+
     await global.mongoDB.db('musicPlaylists').collection("users")
         .deleteOne(
             {
                 _id: new ObjectId(req.session.user._id)
             }
         );
+
     global.messageStack.push({
         type: 'success',
         title: 'Successo!',
@@ -130,8 +162,7 @@ router.post('/changePreferences', async function (req, res, next) {
     var groupFollowers = Array.isArray(req.body['followers[]']) ? req.body['followers[]'] : [req.body['followers[]']];
     var genres = Array.isArray(req.body['genres[]']) ? req.body['genres[]'] : [req.body['genres[]']];
 
-    if(groupIds[0] === undefined || groupImages[0] === undefined || groupNames[0] === undefined || groupUrls[0] === undefined || groupFollowers[0] === undefined || genres[0] === undefined)
-    {
+    if (groupIds[0] === undefined || groupImages[0] === undefined || groupNames[0] === undefined || groupUrls[0] === undefined || groupFollowers[0] === undefined || genres[0] === undefined) {
         global.messageStack.push({
             type: 'error',
             title: 'Errore!',

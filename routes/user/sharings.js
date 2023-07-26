@@ -102,6 +102,8 @@ router.get('/clone/:id', async function (req, res, next) {
             playlist.userId = req.session.user._id;
             playlist.title = playlist.title + ' (clone)';
             playlist.createdAt = new Date();
+            playlist.public = false;
+            playlist.likedBy = [];
 
             await global.mongoDB
                 .db("musicPlaylists")

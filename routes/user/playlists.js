@@ -13,22 +13,6 @@ router.get('/', async function (req, res, next) {
             userId: req.session.user._id
         });
 
-    // var arrFinal = await playListsList.toArray();
-    //
-    // var url = "http://localhost:3000/api/get-song-by-ids?";
-    // arrFinal[0]['songsId'].slice(0, 3).forEach(songId => {
-    //     url += "ids[]=" + songId + "&";
-    // });
-    //
-    //
-    //
-    // var songs = [];
-    // await fetch(url)
-    //     .then(response => response.json())
-    //     .then(response => {
-    //         songs = response;
-    //     });
-
     var array = await playListsList.toArray();
 
     res.render('user/playlists/playlists',
@@ -166,7 +150,7 @@ router.post('/edit/:id', async function (req, res, next) {
                 songsImage: song_images,
                 songsAuthor: song_authors,
                 songsDuration: song_durations,
-                songPreview: songPreview,
+                songsPreview: songPreview,
                 songsReleaseDate: release_date,
                 songsGenre: genres,
 
@@ -222,7 +206,7 @@ router.get('/view/:id', async function (req, res, next) {
         return res.status(400).redirect(req.get('Referrer'));
     }
 
-    res.render('user/playlists/viewPlaylist', {title: "Visualizza playlist", playlist: playList});
+    res.render('user/playlists/viewPlaylist', {title: "Visualizza playlist", playlist: playList, user: req.session.user});
 });
 
 router.get('/delete/:id', async function (req, res, next) {

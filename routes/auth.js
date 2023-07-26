@@ -19,8 +19,8 @@ router.get('/register', function (req, res, next) {
 /* Page handlers */
 router.post('/login',
     body('email').isEmail().withMessage('Email non valida'),
-    body('password').isLength({min: 8}).withMessage('Password non valida, lunghezza minima 8 caratteri!')
-    , async function (req, res, next) {
+    body('password').isLength({min: 8}).withMessage('Password non valida, lunghezza minima 8 caratteri!'),
+    async function (req, res, next) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             for (let i = 0; i < errors.array().length; i++) {
@@ -111,7 +111,24 @@ router.post('/register',
                             phone: "",
                         }],
                     });
-                return res.redirect('/auth/login');
+                if(a){
+                    global.messageStack.push({
+                        type: 'success',
+                        title: 'Successo!',
+                        message: 'Registrazione completata con successo!',
+                        position: 'topRight'
+                    });
+                    return res.redirect('/auth/login');
+                }
+                else{
+                    global.messageStack.push({
+                        type: 'error',
+                        title: 'Errore!',
+                        message: 'Si è verificato un errore interno!',
+                        position: 'topRight'
+                    });
+                    return res.redirect('/auth/register');
+                }
             } catch (e) {
                 if (e.code === 11000) {
                     global.messageStack.push({
