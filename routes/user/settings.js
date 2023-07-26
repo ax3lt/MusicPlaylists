@@ -155,22 +155,25 @@ router.get('/deleteAccount', async function (req, res, next) {
 // Preferenze
 
 router.post('/changePreferences', async function (req, res, next) {
-    var groupIds = Array.isArray(req.body['id[]']) ? req.body['id[]'] : [req.body['id[]']];
-    var groupImages = Array.isArray(req.body['image[]']) ? req.body['image[]'] : [req.body['image[]']];
-    var groupNames = Array.isArray(req.body['name[]']) ? req.body['name[]'] : [req.body['name[]']];
-    var groupUrls = Array.isArray(req.body['userUrl[]']) ? req.body['userUrl[]'] : [req.body['userUrl[]']];
-    var groupFollowers = Array.isArray(req.body['followers[]']) ? req.body['followers[]'] : [req.body['followers[]']];
-    var genres = Array.isArray(req.body['genres[]']) ? req.body['genres[]'] : [req.body['genres[]']];
 
-    if (groupIds[0] === undefined || groupImages[0] === undefined || groupNames[0] === undefined || groupUrls[0] === undefined || groupFollowers[0] === undefined || genres[0] === undefined) {
-        global.messageStack.push({
-            type: 'error',
-            title: 'Errore!',
-            message: 'Nessuna preferenza selezionata!',
-            position: 'topRight'
-        });
-        return res.redirect('/user/settings/preferences');
-    }
+    //return res.json(req.body['id'][0]);
+
+    var groupIds = Array.isArray(req.body['id']) ? req.body['id'] : [req.body['id']];
+    var groupImages = Array.isArray(req.body['image']) ? req.body['image'] : [req.body['image']];
+    var groupNames = Array.isArray(req.body['name']) ? req.body['name'] : [req.body['name']];
+    var groupUrls = Array.isArray(req.body['userUrl']) ? req.body['userUrl'] : [req.body['userUrl']];
+    var groupFollowers = Array.isArray(req.body['followers']) ? req.body['followers'] : [req.body['followers']];
+    var genres = Array.isArray(req.body['genres']) ? req.body['genres'] : [req.body['genres']];
+
+    // if (groupIds[0] === undefined || groupImages[0] === undefined || groupNames[0] === undefined || groupUrls[0] === undefined || groupFollowers[0] === undefined || genres[0] === undefined) {
+    //     global.messageStack.push({
+    //         type: 'error',
+    //         title: 'Errore!',
+    //         message: 'Nessuna preferenza selezionata!',
+    //         position: 'topRight'
+    //     });
+    //     return res.redirect('/user/settings/preferences');
+    // }
 
     var preferences = [];
     for (var i = 0; i < groupIds.length; i++) {

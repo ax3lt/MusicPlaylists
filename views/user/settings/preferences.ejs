@@ -208,6 +208,7 @@
                                 </svg>
                             </span>`;
         $('#genresContainer').append(block);
+        $('#genreInput').val('');
         genres.push(genre);
     });
 
@@ -308,6 +309,7 @@
 
                 document.getElementById('artistsContainer').insertAdjacentHTML('beforeend', block);
                 artistIds.push(id);
+                $('#artistSearchInput').val('');
 
             },
             error: function (err) {

@@ -29,15 +29,15 @@ router.post('/create', async function (req, res, next) {
     var user_id = req.session.user._id;
     var name = req.body.playListName;
     var description = req.body.playListDescription;
-    var song_ids = Array.isArray(req.body['songId[]']) ? req.body['songId[]'] : [req.body['songId[]']];
-    var song_names = Array.isArray(req.body['songName[]']) ? req.body['songName[]'] : [req.body['songName[]']];
-    var song_images = Array.isArray(req.body['songImage[]']) ? req.body['songImage[]'] : [req.body['songImage[]']];
-    var song_authors = Array.isArray(req.body['songAuthor[]']) ? req.body['songAuthor[]'] : [req.body['songAuthor[]']];
-    var song_durations = Array.isArray(req.body['songDuration[]']) ? req.body['songDuration[]'] : [req.body['songDuration[]']];
-    var release_date = Array.isArray(req.body['songReleaseDate[]']) ? req.body['songReleaseDate[]'] : [req.body['songReleaseDate[]']];
-    var songPreview = Array.isArray(req.body['songPreview[]']) ? req.body['songPreview[]'] : [req.body['songPreview[]']];
-    var genres = Array.isArray(req.body['songGenre[]']) ? req.body['songGenre[]'] : [req.body['songGenre[]']];
-    var tags = Array.isArray(req.body['tag[]']) ? req.body['tag[]'] : [req.body['tag[]']];
+    var song_ids = Array.isArray(req.body['songId']) ? req.body['songId'] : [req.body['songId']];
+    var song_names = Array.isArray(req.body['songName']) ? req.body['songName'] : [req.body['songName']];
+    var song_images = Array.isArray(req.body['songImage']) ? req.body['songImage'] : [req.body['songImage']];
+    var song_authors = Array.isArray(req.body['songAuthor']) ? req.body['songAuthor'] : [req.body['songAuthor']];
+    var song_durations = Array.isArray(req.body['songDuration']) ? req.body['songDuration'] : [req.body['songDuration']];
+    var release_date = Array.isArray(req.body['songReleaseDate']) ? req.body['songReleaseDate'] : [req.body['songReleaseDate']];
+    var songPreview = Array.isArray(req.body['songPreview']) ? req.body['songPreview'] : [req.body['songPreview']];
+    var genres = Array.isArray(req.body['songGenre']) ? req.body['songGenre'] : [req.body['songGenre']];
+    var tags = Array.isArray(req.body['tag']) ? req.body['tag'] : [req.body['tag']];
 
     await global.mongoDB
         .db("musicPlaylists")
@@ -128,15 +128,15 @@ router.post('/edit/:id', async function (req, res, next) {
 
     var name = req.body.playListName;
     var description = req.body.playListDescription;
-    var song_ids = Array.isArray(req.body['songId[]']) ? req.body['songId[]'] : [req.body['songId[]']];
-    var song_names = Array.isArray(req.body['songName[]']) ? req.body['songName[]'] : [req.body['songName[]']];
-    var song_images = Array.isArray(req.body['songImage[]']) ? req.body['songImage[]'] : [req.body['songImage[]']];
-    var song_authors = Array.isArray(req.body['songAuthor[]']) ? req.body['songAuthor[]'] : [req.body['songAuthor[]']];
-    var song_durations = Array.isArray(req.body['songDuration[]']) ? req.body['songDuration[]'] : [req.body['songDuration[]']];
-    var release_date = Array.isArray(req.body['songReleaseDate[]']) ? req.body['songReleaseDate[]'] : [req.body['songReleaseDate[]']];
-    var genres = Array.isArray(req.body['songGenre[]']) ? req.body['songGenre[]'] : [req.body['songGenre[]']];
-    var songPreview = Array.isArray(req.body['songPreview[]']) ? req.body['songPreview[]'] : [req.body['songPreview[]']];
-    var tags = Array.isArray(req.body['tag[]']) ? req.body['tag[]'] : [req.body['tag[]']];
+    var song_ids = Array.isArray(req.body['songId']) ? req.body['songId'] : [req.body['songId']];
+    var song_names = Array.isArray(req.body['songName']) ? req.body['songName'] : [req.body['songName']];
+    var song_images = Array.isArray(req.body['songImage']) ? req.body['songImage'] : [req.body['songImage']];
+    var song_authors = Array.isArray(req.body['songAuthor']) ? req.body['songAuthor'] : [req.body['songAuthor']];
+    var song_durations = Array.isArray(req.body['songDuration']) ? req.body['songDuration'] : [req.body['songDuration']];
+    var release_date = Array.isArray(req.body['songReleaseDate']) ? req.body['songReleaseDate'] : [req.body['songReleaseDate']];
+    var genres = Array.isArray(req.body['songGenre']) ? req.body['songGenre'] : [req.body['songGenre']];
+    var songPreview = Array.isArray(req.body['songPreview']) ? req.body['songPreview'] : [req.body['songPreview']];
+    var tags = Array.isArray(req.body['tag']) ? req.body['tag'] : [req.body['tag']];
 
     var a = await global.mongoDB
         .db("musicPlaylists")
