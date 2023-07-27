@@ -68,6 +68,18 @@ $('#songSearch').on('click', function () {
         <div class="text-muted">${data['autore']} - ${year} - ${data['genre'] ?? 'Non definito'}</div>
         </div>
         <div class="col-auto text-muted">${data['durata']}</div>
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="icon icon-tabler icon-tabler-trash g-1" width="40" height="40"
+             viewBox="0 0 24 24" stroke-width="2" stroke="red" fill="none"
+             stroke-linecap="round" stroke-linejoin="round"
+             onclick="deleteMe(this)">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M4 7l16 0"></path>
+            <path d="M10 11l0 6"></path>
+            <path d="M14 11l0 6"></path>
+            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+        </svg>
     </div>
 </div>`
 
@@ -105,5 +117,30 @@ async function getGenre(autore) {
         console.error(error);
         return "Non fornito";
     }
+}
+
+
+function deleteMe(element) {
+    if (songList.length === 1) {
+        iziToast.error({
+            title: 'Errore',
+            iconUrl: '/images/error.png',
+            message: 'La playlist deve contenere almeno una canzone.',
+            position: 'topRight'
+        });
+        return;
+    }
+
+    element.parentNode.parentNode.remove();
+    songList.splice(songList.indexOf(element.parentNode.parentNode.querySelector('input[name="songId[]"]').value), 1);
+
+    // Reset counter
+    //row g-2 align-items-center
+    var parent = document.querySelectorAll("#listaCanzoni .row.g-2.align-items-center")
+    var songsCounter = 1;
+    for (var i = 0; i < parent.length; i++) {
+        parent[i].querySelector(".fs-3").innerHTML = songsCounter++;
+    }
+
 }
 
