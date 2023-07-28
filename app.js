@@ -8,10 +8,12 @@ const mongoClient = require('mongodb').MongoClient;
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
 
+require("dotenv").config();
 
-new mongoClient("mongodb://cloud1.ax3lt.com:20008").connect()
+new mongoClient(process.env.MONGO_URL).connect()
     .then((client) => {
         global.mongoDB = client;
+        console.info("INFO: Connected to MongoDB");
     }).catch((err) => {
         process.exit(1);
     });
