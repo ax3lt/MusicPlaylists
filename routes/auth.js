@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const {body, validationResult} = require('express-validator');
 const crypto = require('crypto');
+var sanitize = require('mongo-sanitize');
 
 /* Page rendering */
 router.get('/', function (req, res, next) {
@@ -39,7 +40,7 @@ router.post('/login',
                 .db("musicPlaylists")
                 .collection("users")
                 .findOne({
-                    email: req.body.email,
+                    email: sanitize(req.body.email),
                     password: crypto.createHash('sha256').update(req.body.password).digest('hex'),
                 });
             //console.log(a);
@@ -94,8 +95,8 @@ router.post('/register',
                     .db("musicPlaylists") // Access the db directly without invoking as a function
                     .collection("users")
                     .insertOne({
-                        email: req.body.email,
-                        username: req.body.username,
+                        email: sanitize(req.body.email),
+                        username: sanitize(req.body.username),
                         password: crypto.createHash('sha256').update(req.body.password).digest('hex'),
                         preferences: [{
                             artists: [],
@@ -182,7 +183,7 @@ router.get('/google/callback',
                 .db("musicPlaylists") // Access the db directly without invoking as a function
                 .collection("users")
                 .findOne({
-                    email: userProfile['emails'][0]['value'],
+                    email: sanitize(userProfile['emails'][0]['value']),
                 });
             if (a) {
                 req.session.user = a;

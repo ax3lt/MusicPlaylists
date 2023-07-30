@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ObjectId = require('mongodb').ObjectId;
+var sanitize = require('mongo-sanitize');
 
 
 router.get('/', async function (req, res, next) {
@@ -43,18 +44,18 @@ router.post('/create', async function (req, res, next) {
         .db("musicPlaylists")
         .collection("playlists")
         .insertOne({
-            userId: user_id,
-            title: name,
-            description: description,
-            songsId: song_ids,
-            songsName: song_names,
-            songsImage: song_images,
-            songsAuthor: song_authors,
-            songsDuration: song_durations,
-            songsReleaseDate: release_date,
-            songsGenre: genres,
-            songsPreview: songPreview,
-            tags: tags,
+            userId: sanitize(user_id),
+            title: sanitize(name),
+            description: sanitize(description),
+            songsId: sanitize(song_ids),
+            songsName: sanitize(song_names),
+            songsImage: sanitize(song_images),
+            songsAuthor: sanitize(song_authors),
+            songsDuration: sanitize(song_durations),
+            songsReleaseDate: sanitize(release_date),
+            songsGenre: sanitize(genres),
+            songsPreview: sanitize(songPreview),
+            tags: sanitize(tags),
             public: req.body.public === 'on',
             likedBy: [],
             createdAt: Date.now(),
@@ -143,18 +144,17 @@ router.post('/edit/:id', async function (req, res, next) {
         .collection("playlists")
         .updateOne({_id: new ObjectId(playlistId)}, {
             $set: {
-                title: name,
-                description: description,
-                songsId: song_ids,
-                songsName: song_names,
-                songsImage: song_images,
-                songsAuthor: song_authors,
-                songsDuration: song_durations,
-                songsPreview: songPreview,
-                songsReleaseDate: release_date,
-                songsGenre: genres,
-
-                tags: tags,
+                title: sanitize(name),
+                description: sanitize(description),
+                songsId: sanitize(song_ids),
+                songsName: sanitize(song_names),
+                songsImage: sanitize(song_images),
+                songsAuthor: sanitize(song_authors),
+                songsDuration: sanitize(song_durations),
+                songsPreview: sanitize(songPreview),
+                songsReleaseDate: sanitize(release_date),
+                songsGenre: sanitize(genres),
+                tags: sanitize(tags),
                 public: req.body.public === 'on',
             }
         });

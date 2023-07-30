@@ -1,6 +1,7 @@
 var express = require('express');
 const crypto = require("crypto");
 const {ObjectId} = require("mongodb");
+var sanitize = require('mongo-sanitize');
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
@@ -25,12 +26,12 @@ router.post('/changeImage', async function (req, res, next) {
         });
         return res.redirect('/user/settings');
     }
-    var image = req.body.image;
+    var image = sanitize(req.body.image);
     req.session.user.personalInfo[0].propic = image;
 
     var a = await global.mongoDB.db('musicPlaylists').collection("users").updateOne(
         {
-            email: req.session.user.email
+            email: sanitize(req.session.user.email)
         },
         {
             $set: {'personalInfo.0.propic': image}
@@ -78,12 +79,12 @@ router.post('/changePassword', function (req, res) {
 
 
 router.post('/changeInfo', async function (req, res, next) {
-    var name = req.body.name;
-    var surname = req.body.surname;
-    var age = req.body.age;
-    var gender = req.body.gender;
-    var address = req.body.address;
-    var phone = req.body.phone;
+    var name = sanitize(req.body.name);
+    var surname = sanitize(req.body.surname);
+    var age = sanitize(req.body.age);
+    var gender = sanitize(req.body.gender);
+    var address = sanitize(req.body.address);
+    var phone = sanitize(req.body.phone);
 
     var a = await global.mongoDB.db('musicPlaylists').collection("users").updateOne(
         {
@@ -189,12 +190,12 @@ router.post('/changePreferences', async function (req, res, next) {
 
     var a = await global.mongoDB.db('musicPlaylists').collection("users").updateOne(
         {
-            email: req.session.user.email
+            email: sanitize(req.session.user.email)
         },
         {
             $set: {
-                'preferences.0.artists': preferences,
-                'preferences.0.genres': genres
+                'preferences.0.artists': sanitize(preferences),
+                'preferences.0.genres': sanitize(genres)
             }
         }, function (err) {
             if (err)

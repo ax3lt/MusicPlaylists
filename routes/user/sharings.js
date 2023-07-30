@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ObjectId = require('mongodb').ObjectId;
+var sanitize = require('mongo-sanitize');
 
 router.get('/', async function (req, res, next) {
     // Controllo se c'e il parametro search nella query
@@ -100,7 +101,7 @@ router.get('/clone/:id', async function (req, res, next) {
         if (playlist.userId !== req.session.user._id) {
             playlist._id = new ObjectId();
             playlist.userId = req.session.user._id;
-            playlist.title = playlist.title + ' (clone)';
+            playlist.title = sanitize(playlist.title) + ' (clone)';
             playlist.createdAt = new Date();
             playlist.public = false;
             playlist.likedBy = [];
