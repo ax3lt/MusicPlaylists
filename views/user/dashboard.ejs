@@ -171,10 +171,13 @@
                                              role="progressbar"
                                              aria-valuenow="82.54" aria-valuemin="0" aria-valuemax="100"
                                              aria-label="82.54% Complete">
-                                            <span class="visually-hidden">82.54% Complete</span>
                                         </div>
                                     </div>
-                                    <div class="progressbg-text"><%= arrByLikes[i].titolo %></div>
+                                    <div class="progressbg-text">
+                                        <%=
+                                            arrByLikes[i].titolo.length < 15 ? arrByLikes[i].titolo : arrByLikes[i].titolo.slice(0, 15) + '...';
+                                        %>
+                                    </div>
                                 </div>
                             </td>
                             <td class="w-1 fw-bold text-end"><%= arrByLikes[i].nLikes %></td>
