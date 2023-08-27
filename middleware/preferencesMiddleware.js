@@ -1,5 +1,5 @@
 const edited = (req, res, next) => {
-    if (req.originalUrl.startsWith('/user/') && (req.originalUrl !== '/user/settings/preferences' && req.originalUrl !== '/user/settings/changePreferences')) {
+    if (req.originalUrl.startsWith('/user/') && (req.originalUrl !== '/user/settings/preferences' && req.originalUrl !== '/user/settings/changePreferences' && req.originalUrl !== '/user/theme/dark' && req.originalUrl !== '/user/theme/light')) {
         if(req.session.user.preferences[0].artists.length === 0 || req.session.user.preferences[0].genres.length === 0) {
             global.messageStack.push({
                 type: 'error',
