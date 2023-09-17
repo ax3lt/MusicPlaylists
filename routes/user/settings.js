@@ -217,7 +217,7 @@ router.post('/changePreferences', async function (req, res, next) {
             title: 'Impostazioni modificate!',
             message: 'Le impostazioni sono state modificate con successo',
         });
-        return res.redirect('/user/settings/preferences');
+        return res.redirect('/user/dashboard');
     }
 });
 

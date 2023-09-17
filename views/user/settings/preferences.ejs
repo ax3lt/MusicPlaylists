@@ -104,7 +104,7 @@
                                                 user.preferences[0].genres.forEach(element =>{
                                                     var color = colorArray[Math.floor(Math.random() * colorArray.length)];
                                                 %>
-                                                <span class="badge <%=color%> d-flex">
+                                                <span class="badge <%=color%> d-flex text-white">
                                                         <%= element %>
                                                         <input type="hidden" name="genres[]" value="<%= element %>">
                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -192,7 +192,7 @@
         }
 
         const colorArray = ["bg-blue", "bg-azure", "bg-indigo", "bg-purple", "bg-pink", "bg-red", "bg-orange", "bg-yellow", "bg-lime", "bg-green", "bg-teal", "bg-cyan"];
-        let block = `<span class="badge ${colorArray[Math.floor(Math.random() * colorArray.length)]}">
+        let block = `<span class="badge ${colorArray[Math.floor(Math.random() * colorArray.length)]} text-white">
                                 ${genre}
                                 <input type="hidden" name="genres[]" value="${genre}">
                                 <svg xmlns="http://www.w3.org/2000/svg"

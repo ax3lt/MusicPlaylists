@@ -40,7 +40,7 @@ router.post('/create', async function (req, res, next) {
     var genres = Array.isArray(req.body['songGenre']) ? req.body['songGenre'] : [req.body['songGenre']];
     var tags = Array.isArray(req.body['tag']) ? req.body['tag'] : [req.body['tag']];
 
-    await global.mongoDB
+     await global.mongoDB
         .db("musicPlaylists")
         .collection("playlists")
         .insertOne({

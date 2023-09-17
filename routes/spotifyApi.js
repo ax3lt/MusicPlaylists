@@ -37,7 +37,7 @@ requestAccessToken();
 router.get('/get-song', function (req, res, next) {
     spotifyApi.searchTracks(req.query['title'])
         .then(function (data) {
-            return res.json(data.body['tracks']['items'][0]);
+            return res.json(data.body['tracks']['items']);
         })
         .catch(function (err) {
             // If the API request fails due to an expired token, request a new token and retry the request

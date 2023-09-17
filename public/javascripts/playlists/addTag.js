@@ -34,7 +34,7 @@ $('#tagAdd').on('click', function () {
     }
 
     var hidden = `<input type="hidden" name="tag[]" value="${tagInput}">`
-    var tag = `<span class="badge ${colorArray[Math.floor(Math.random() * colorArray.length)]}">${tagInput}</span>`;
+    var tag = `<span class="badge text-white ${colorArray[Math.floor(Math.random() * colorArray.length)]}">${tagInput}</span>`;
     element.insertAdjacentHTML('beforeend', hidden);
     element.insertAdjacentHTML('beforeend', tag);
     tagsList.push(tagInput);
