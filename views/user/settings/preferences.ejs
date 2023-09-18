@@ -139,7 +139,7 @@
                     </div>
                     <div class="card-footer bg-transparent mt-auto" style="border-top: 0; !important;">
                         <div class="btn-list justify-content-end">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="" class="btn btn-primary" id="preferencesFormSubmit">
                                 Salva
                             </button>
                         </div>
@@ -147,7 +147,24 @@
                 </form>
             </div>
         </div>
-
+    </div>
+    <div class="modal modal-blur fade" id="modal-scrollable" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Scelta artista</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="artistChooser" class="list-group card-list-group">
+                        <pre class="bg-red" style="color: white">Nessun artista trovato</pre>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn me-auto" data-bs-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -161,6 +178,32 @@
         "<%= element %>",
         <% }) %>
     ];
+
+
+    $('#preferencesFormSubmit').on('click', function (e) {
+        e.preventDefault();
+        if(artistIds === [] || artistIds[0] === "" || artistIds.length === 0)
+        {
+            iziToast.error({
+                iconUrl: '/images/error.png',
+                title: 'Errore',
+                message: 'Devi inserire almeno un artista',
+                position: 'topRight'
+            });
+            return;
+        }
+        if(genres === [] || genres[0] === "" || genres.length === 0)
+        {
+            iziToast.error({
+                iconUrl: '/images/error.png',
+                title: 'Errore',
+                message: 'Devi inserire almeno un genere',
+                position: 'topRight'
+            });
+            return;
+        }
+        $('#preferencesForm').submit();
+    });
 
 
     $('#genreAdd').on('click', function () {
@@ -255,25 +298,100 @@
                     return;
                 }
 
-                let id = artistData.artists.items[0].id;
-                if (artistIds.includes(id)) {
+                let element = document.getElementById('artistChooser');
+
+
+                if (artistData.artists.items.length > 0) {
+                    $('#modal-scrollable').modal('show');
+                    $('#artistSearchInput').val('');
+                    $('#artistChooser').html('');
+                } else {
                     iziToast.error({
                         iconUrl: '/images/error.png',
                         title: 'Errore',
-                        message: 'Artista già presente',
+                        message: 'Nessun artista trovato con questo nome',
                         position: 'topRight'
                     });
                     return;
                 }
 
 
-                let followers = artistData.artists.items[0].followers.total;
-                let image = artistData.artists.items[0].images[0].url;
-                let name = artistData.artists.items[0].name;
-                let userUrl = artistData.artists.items[0].external_urls.spotify;
 
 
-                var block = `
+                for (var i = 0; i < artistData.artists.items.length; i++) {
+
+
+                    let id = artistData.artists.items[i].id;
+                    let followers = artistData.artists.items[i].followers.total;
+                    let image = artistData.artists.items[i].images.length > 0 ? artistData.artists.items[i].images[0].url : '/images/user_default.png';
+                    let name = artistData.artists.items[i].name;
+                    let userUrl = artistData.artists.items[i].external_urls.spotify;
+
+                    var block = `
+                                <div class="row mb-2">
+                                    <input type="hidden" name="id[]" value="${id}">
+                                    <input type="hidden" name="image[]" value="${image}">
+                                    <input type="hidden" name="name[]" value="${name}">
+                                    <input type="hidden" name="userUrl[]" value="${userUrl}">
+                                    <input type="hidden" name="followers[]" value="${followers}">
+                                    <div class="col-auto">
+                                        <a href="${image}" target="_blank">
+                                            <img class="avatar" src="${image}">
+                                        </a>
+                                    </div>
+                                    <div class="col text-truncate">
+                                        <a href="${userUrl}" class="text-body d-block" target="_blank">${name}</a>
+                                        <div class="text-muted text-truncate mt-n1">${formatFollowersCount(followers)} followers</div>
+                                    </div>
+                                    <div class="col-auto align-self-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus g-1"
+                                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                                fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                style="--tblr-gutter-y: 0.5rem !important;"
+                                                onclick="addArtist(this.parentNode.parentNode)">
+                                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                   <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+                                                   <path d="M9 12h6"></path>
+                                                   <path d="M12 9v6"></path>
+                                                </svg>
+                                    </div>
+                                </div>
+                `;
+                    element.insertAdjacentHTML('beforeend', block);
+                }
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+
+    function addArtist(element){
+        console.log(element);
+        let destination = document.getElementById('artistsContainer');
+
+
+
+        let id = element.querySelector('input[name="id[]"]').value;
+        if (artistIds.includes(id)) {
+            iziToast.error({
+                iconUrl: '/images/error.png',
+                title: 'Errore',
+                message: 'Artista già presente',
+                position: 'topRight'
+            });
+            return;
+        }
+
+        let followers = element.querySelector('input[name="followers[]"]').value;
+        let image = element.querySelector('input[name="image[]"]').value;
+        let name = element.querySelector('input[name="name[]"]').value;
+        let userUrl = element.querySelector('input[name="userUrl[]"]').value;
+
+
+        var block = `
                                 <div class="row mb-2">
                                     <input type="hidden" name="id[]" value="${id}">
                                     <input type="hidden" name="image[]" value="${image}">
@@ -303,20 +421,14 @@
                                     </div>
                                 </div>
                 `;
+        if(artistIds.length === 0)
+            destination.innerHTML = '';
 
-                if(artistIds.length === 0)
-                    $('#artistsContainer').html('');
+        destination.insertAdjacentHTML('beforeend', block);
+        artistIds.push(id);
+        $('#modal-scrollable').modal('hide');
 
-                document.getElementById('artistsContainer').insertAdjacentHTML('beforeend', block);
-                artistIds.push(id);
-                $('#artistSearchInput').val('');
-
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-    });
+    }
 
     function deleteArtist(element) {
         if (artistIds.length <= 1) {

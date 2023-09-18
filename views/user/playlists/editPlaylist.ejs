@@ -66,9 +66,11 @@
                                 <div class="row g-2 align-items-center">
                                     <div class="col-auto fs-3"><%= i + 1 %></div>
                                     <div class="col-auto">
+                                        <a href="<%= playlist.songsImage[i] %>" target="_blank">
                                         <img src="<%= playlist.songsImage[i] %>" class="rounded"
                                              alt="<%= playlist.songsName[i] %>"
                                              width="40" height="40">
+                                        </a>
                                     </div>
                                     <div class="col"><%= playlist.songsName[i] %>
                                         <div class="text-muted"><%= playlist.songsAuthor[i] %> - <%= year %>
@@ -213,6 +215,8 @@
 
     var songsCount = <%= playlist.songsId.length %>;
 
+    var currentSong = null;
+
     function deleteMe(elementId) {
         if (songsCount === 1) {
             iziToast.error({
@@ -225,6 +229,14 @@
         }
 
         var element = document.getElementById(elementId);
+
+
+        if(element.querySelector("svg").getAttribute("onclick").includes(currentSong)){
+            document.getElementById('audio').pause();
+        }
+
+
+
         var songId = element.querySelector("input[name='songId[]']").value;
         songList.splice(songList.indexOf(songId), 1);
         element.remove()
@@ -301,8 +313,12 @@
         <input type="hidden" name="songGenre[]" value="${data['genre']}">
         <input type="hidden" name="songPreview[]" value="${data['songPreview']}">
         <div class="col-auto fs-3">${i + 1}</div>
-        <div class="col-auto"><img src="${data['logo']}" class="rounded"
-                                   alt="${data['titolo']}" width="40" height="40"></div>
+        <div class="col-auto">
+
+        <a href="${data['logo']}" target="_blank">
+            <img src="${data['logo']}" class="rounded"
+                                   alt="${data['titolo']}" width="40" height="40">
+        </a></div>
         <div class="col">${data['titolo']}
         <div class="text-muted">${data['autore']} - ${year} - ${data['genre'] ?? 'Non definito'}</div>
         </div>
@@ -402,8 +418,8 @@
                                         <input type="hidden" name="songGenre[]" value="${genre}">
                                         <input type="hidden" name="songPreview[]" value="${songPreview}">
                                         <div class="col-auto fs-3">${songsCount + 1}</div>
-                                        <div class="col-auto"><img src="${logo}" class="rounded"
-                                                                   alt="${titolo}" width="40" height="40"></div>
+                                        <div class="col-auto"><a href="${data['logo']}" target="_blank"><img src="${logo}" class="rounded"
+                                                                   alt="${titolo}" width="40" height="40"></a></div>
                                         <div class="col">${titolo}
                                         <div class="text-muted">${autore} - ${year} - ${genre}</div>
                                         </div>
@@ -517,7 +533,6 @@
         }
     }
 
-    var currentSong = null;
 
     function play(link) {
         if (link === 'null') {

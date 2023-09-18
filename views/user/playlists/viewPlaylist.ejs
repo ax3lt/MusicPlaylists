@@ -86,9 +86,12 @@
                         <div class="list-group-item">
                             <div class="row g-2 align-items-center">
                                 <div class="col-auto fs-3"><%= i + 1 %></div>
-                                <div class="col-auto"><img src="<%= playlist.songsImage[i] %>" class="rounded"
+                                <div class="col-auto">
+                                    <a href="<%= playlist.songsImage[i] %>" target="_blank">
+                                    <img src="<%= playlist.songsImage[i] %>" class="rounded"
                                                            alt="<%= playlist.songsName[i] %>" width="40"
                                                            height="40">
+                                    </a>
                                 </div>
                                 <div class="col"><%= playlist.songsName[i] %>
                                     <div class="text-muted"><%= playlist.songsAuthor[i] %> - <%= year %>
