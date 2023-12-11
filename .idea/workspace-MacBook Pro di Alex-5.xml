@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="db6b5a6a-852f-440a-9a7a-732079ab22ea" name="Changes" comment="Rimossi commenti non necessari">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/user/playlists.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user/playlists.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2PyHwh7xJnnN6avj4JXvwImGYn6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.3.1&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.3.1&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Axel/Downloads/ml-llm-232.9191.zip&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\public\images" />
+      <recent name="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\views\templates\user" />
+      <recent name="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\views\user" />
+      <recent name="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\views\user\playlists" />
+      <recent name="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\routes\user" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\public\images" />
+      <recent name="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\views\user" />
+      <recent name="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\views\user\settings" />
+      <recent name="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\views\user\playlists" />
+      <recent name="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\views\user\CRUD" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.macos">
+    <configuration name="bin\www JavaScript" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="macos" type="NodeJSConfigurationType" path-to-node="/opt/homebrew/bin/nodemon" path-to-js-file="bin/www" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="SwaggerCodegen">
+      <option name="customTemplatesPath" value="" />
+      <option name="generateToPath" value="C:\Users\Axel\gen" />
+      <option name="generationParameters">
+        <list />
+      </option>
+      <option name="generatorType" value="OPENAPI_GENERATOR_V6" />
+      <option name="jdkPath" value="C:\Users\Axel\AppData\Local\JetBrains\Toolbox\apps\WebStorm\ch-0\232.8660.143\jbr\bin\java.exe" />
+      <option name="language" value="typescript-node" />
+      <option name="specificationPath" value="C:\Users\Axel\OneDrive\Progetti informatica\WebstormProjects\MusicPlaylists\swagger-output.json" />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="swagger-autogen" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="swagger-autogen" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.bin\www JavaScript" />
+      <item itemvalue="Node.js.bin\www" />
+      <item itemvalue="Node.js.macos" />
+      <item itemvalue="npm.start" />
+      <item itemvalue="npm.swagger-autogen" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.swagger-autogen" />
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="db6b5a6a-852f-440a-9a7a-732079ab22ea" name="Changes" comment="" />
+      <created>1684422641974</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1684422641974</updated>
+      <workItem from="1684422643206" duration="1898000" />
+      <workItem from="1684427526304" duration="1038000" />
+      <workItem from="1684439084223" duration="2122000" />
+      <workItem from="1684442432935" duration="796000" />
+      <workItem from="1684523611371" duration="2872000" />
+      <workItem from="1684526790275" duration="2531000" />
+      <workItem from="1684614376481" duration="90000" />
+      <workItem from="1684847044190" duration="4731000" />
+      <workItem from="1684856398821" duration="7576000" />
+      <workItem from="1684867324394" duration="2726000" />
+      <workItem from="1684872009474" duration="6425000" />
+      <workItem from="1684920539257" duration="2044000" />
+      <workItem from="1684951294511" duration="2933000" />
+      <workItem from="1685016910684" duration="2151000" />
+      <workItem from="1685027648782" duration="45000" />
+      <workItem from="1685032110724" duration="26000" />
+      <workItem from="1685984819835" duration="676000" />
+      <workItem from="1686004763958" duration="3982000" />
+      <workItem from="1686068978555" duration="7518000" />
+      <workItem from="1686147922731" duration="3030000" />
+      <workItem from="1686160261192" duration="6357000" />
+      <workItem from="1686216891434" duration="5468000" />
+      <workItem from="1686236074152" duration="1772000" />
+      <workItem from="1686237879709" duration="1810000" />
+      <workItem from="1686248734629" duration="1522000" />
+      <workItem from="1686258107263" duration="3409000" />
+      <workItem from="1686267425217" duration="1678000" />
+      <workItem from="1686331395782" duration="6415000" />
+      <workItem from="1686343519819" duration="3787000" />
+      <workItem from="1686407156398" duration="3062000" />
+      <workItem from="1686480535499" duration="801000" />
+      <workItem from="1686484416768" duration="2892000" />
+      <workItem from="1686558259392" duration="3620000" />
+      <workItem from="1686592418357" duration="1014000" />
+      <workItem from="1686598422570" duration="4057000" />
+      <workItem from="1686645553930" duration="3893000" />
+      <workItem from="1686664109245" duration="5103000" />
+      <workItem from="1686671575231" duration="1268000" />
+      <workItem from="1686686850815" duration="368000" />
+      <workItem from="1686768626336" duration="3572000" />
+      <workItem from="1686837075312" duration="3918000" />
+      <workItem from="1686847774075" duration="4069000" />
+      <workItem from="1686864482650" duration="354000" />
+      <workItem from="1686909412598" duration="3680000" />
+      <workItem from="1686916262186" duration="209000" />
+      <workItem from="1686998640330" duration="218000" />
+      <workItem from="1687011661861" duration="692000" />
+      <workItem from="1687344700512" duration="1811000" />
+      <workItem from="1687348742659" duration="866000" />
+      <workItem from="1687352093829" duration="270000" />
+      <workItem from="1687352375918" duration="471000" />
+      <workItem from="1687516052439" duration="37000" />
+      <workItem from="1687525644476" duration="41000" />
+      <workItem from="1687592032183" duration="12389000" />
+      <workItem from="1687608616731" duration="314000" />
+      <workItem from="1689146873917" duration="11898000" />
+      <workItem from="1689417841702" duration="10029000" />
+      <workItem from="1689503077973" duration="2004000" />
+      <workItem from="1689533217120" duration="5746000" />
+      <workItem from="1689547537811" duration="1612000" />
+      <workItem from="1689585324667" duration="4163000" />
+      <workItem from="1689621546304" duration="3802000" />
+      <workItem from="1689665935160" duration="923000" />
+      <workItem from="1689680858294" duration="3090000" />
+      <workItem from="1689694322610" duration="5907000" />
+      <workItem from="1689757962709" duration="1228000" />
+      <workItem from="1689763911928" duration="8583000" />
+      <workItem from="1689779498212" duration="189000" />
+      <workItem from="1689788121760" duration="3978000" />
+      <workItem from="1689834660299" duration="3320000" />
+      <workItem from="1689840686106" duration="2187000" />
+      <workItem from="1689855860702" duration="3848000" />
+      <workItem from="1690359338471" duration="192000" />
+      <workItem from="1690359543793" duration="1181000" />
+      <workItem from="1690367974424" duration="1488000" />
+      <workItem from="1690374301526" duration="633000" />
+      <workItem from="1690393508062" duration="148000" />
+      <workItem from="1690443478821" duration="2174000" />
+      <workItem from="1690467974776" duration="1529000" />
+      <workItem from="1690482331797" duration="697000" />
+      <workItem from="1690485112968" duration="301000" />
+      <workItem from="1690530313048" duration="1097000" />
+      <workItem from="1690629175734" duration="505000" />
+      <workItem from="1690730800193" duration="1253000" />
+      <workItem from="1691358862071" duration="486000" />
+      <workItem from="1691525634647" duration="608000" />
+      <workItem from="1691871182626" duration="42000" />
+      <workItem from="1692459491759" duration="215000" />
+      <workItem from="1692459717535" duration="2848000" />
+      <workItem from="1693981589573" duration="655000" />
+      <workItem from="1694692179965" duration="307000" />
+      <workItem from="1694697065288" duration="313000" />
+    </task>
+    <task id="LOCAL-00001" summary="Final">
+      <option name="closed" value="true" />
+      <created>1690359780396</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1690359780396</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Final">
+      <option name="closed" value="true" />
+      <created>1690359814345</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1690359814345</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fixed typo">
+      <option name="closed" value="true" />
+      <created>1690361435587</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1690361435587</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Cambiato qualcosa in node? Modificato array e tolto [] a esempio id[]">
+      <option name="closed" value="true" />
+      <created>1690369275964</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1690369275964</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Input svuotato dopo aggiunta canzone o tag">
+      <option name="closed" value="true" />
+      <created>1690393557644</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1690393557644</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Sostituito tasto play e pause con messaggio se la preview non è disponibile">
+      <option name="closed" value="true" />
+      <created>1690444951216</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1690444951216</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Bottone aggiunta playlist che si nasconde ora non lo fa più">
+      <option name="closed" value="true" />
+      <created>1690468350073</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1690468350073</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Possibilita di eliminare canzone durante creazione playlist">
+      <option name="closed" value="true" />
+      <created>1690469413299</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1690469413299</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added env file">
+      <option name="closed" value="true" />
+      <created>1690530738617</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1690530738617</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added env file">
+      <option name="closed" value="true" />
+      <created>1690530768603</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1690530768603</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Possibilita cambiare tema subito dopo registrazione">
+      <option name="closed" value="true" />
+      <created>1690629659173</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1690629659173</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Aggiunta sanitizzazione input utente nelle query">
+      <option name="closed" value="true" />
+      <created>1690731786361</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1690731786361</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Piccolo fix visualizzazione da mobile dashboard, testo andava in overflow">
+      <option name="closed" value="true" />
+      <created>1691359343103</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1691359343103</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Utils upload">
+      <option name="closed" value="true" />
+      <created>1692460952282</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1692460952282</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Rimossi commenti non necessari">
+      <option name="closed" value="true" />
+      <created>1692462580256</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1692462580256</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="Final" />
+    <MESSAGE value="Fixed typo" />
+    <MESSAGE value="Cambiato qualcosa in node? Modificato array e tolto [] a esempio id[]" />
+    <MESSAGE value="Input svuotato dopo aggiunta canzone o tag" />
+    <MESSAGE value="Sostituito tasto play e pause con messaggio se la preview non è disponibile" />
+    <MESSAGE value="Bottone aggiunta playlist che si nasconde ora non lo fa più" />
+    <MESSAGE value="Possibilita di eliminare canzone durante creazione playlist" />
+    <MESSAGE value="Added env file" />
+    <MESSAGE value="Possibilita cambiare tema subito dopo registrazione" />
+    <MESSAGE value="Aggiunta sanitizzazione input utente nelle query" />
+    <MESSAGE value="Piccolo fix visualizzazione da mobile dashboard, testo andava in overflow" />
+    <MESSAGE value="Utils upload" />
+    <MESSAGE value="Rimossi commenti non necessari" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rimossi commenti non necessari" />
+  </component>
+</project>
