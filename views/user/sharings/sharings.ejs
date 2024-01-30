@@ -24,7 +24,7 @@
     </div>
     <br>
     <div class="row row-gap-3">
-        <% if(playlists.length == 0)
+        <% if(playlists.length === 0)
         {
         %>
             <center><h1 class="text-danger">Nessuna playlist pubblica trovata</h1></center>
@@ -34,7 +34,12 @@
         for(var i = 0; i < playlists.length; i++) {
             data['id'] = playlists[i]._id;
             data['nome'] = playlists[i].title;
-            data['infos'] = playlists[i].user[0].username + ' - ' + playlists[i].user[0].email;
+            // check if user array is empty
+            if (playlists[i].user.length === 0) {
+                data['infos'] = 'Anonimo';
+            } else {
+                data['infos'] = playlists[i].user[0].username + ' - ' + playlists[i].user[0].email;
+            }
             data['logo'] = playlists[i].songsImage;
             data['nLikes'] = 0;
             data['like'] = false;
