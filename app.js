@@ -23,7 +23,6 @@ global.messageStack = [];
 const {authMiddleware} = require('./middleware/authMiddleware');
 const {preferencesMiddleware} = require('./middleware/preferencesMiddleware');
 
-
 var app = express();
 
 // view engine setup
