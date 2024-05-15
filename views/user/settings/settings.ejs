@@ -243,9 +243,10 @@
 
         document.getElementById("changePswForm").addEventListener("submit", function (e) {
             e.preventDefault();
-            var oldPsw = document.getElementById('oldPsw').value;
-            var newPsw = document.getElementById('newPsw').value;
-            var newPsw2 = document.getElementById('newPsw2').value;
+            const oldPsw = document.getElementById('oldPsw').value;
+            const newPsw = document.getElementById('newPsw').value;
+            const newPsw2 = document.getElementById('newPsw2').value;
+
             if (newPsw.length < 8 || newPsw2.length < 8 || oldPsw.length < 8) {
                 iziToast.error({
                     iconUrl: '/images/error.png',
@@ -264,6 +265,8 @@
                 });
                 return;
             }
+
+
 
 
             $.ajax({

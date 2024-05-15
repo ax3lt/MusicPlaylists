@@ -1,11 +1,13 @@
 var express = require('express');
 var SpotifyWebApi = require('spotify-web-api-node');
 var axios = require('axios');
+require('dotenv').config();
 var router = express.Router();
 
 var spotifyApi = new SpotifyWebApi({});
-var clientId = 'd482e62e7ee441b7bc616b0a9b4d7a5c';
-var clientSecret = 'f9a0b0b81c2144ef92dadbfbf1b2235a';
+// get from env
+var clientId = process.env.SPOTIFY_CLIENT_ID;
+var clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
 var accessToken = null;
 
