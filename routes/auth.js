@@ -3,6 +3,7 @@ var router = express.Router();
 const {body, validationResult} = require('express-validator');
 const crypto = require('crypto');
 var sanitize = require('mongo-sanitize');
+require('dotenv').config();
 
 /* Page rendering */
 router.get('/', function (req, res, next) {
@@ -161,8 +162,8 @@ passport.deserializeUser(function (obj, cb) {
 });
 
 passport.use(new GoogleStrategy({
-        clientID: "891673758511-rmpc80rm0hngbn7enngs48djsmnhn0ip.apps.googleusercontent.com", // Your Credentials here.
-        clientSecret: "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", // Your Credentials here.
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CALLBACK_URL,
     },
     function (accessToken, refreshToken, profile, done) {
