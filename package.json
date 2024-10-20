@@ -19,7 +19,7 @@
     "express-swagger-generator": "^1.1.17",
     "express-validator": "^7.0.1",
     "google-auth-library": "^8.9.0",
-    "helmet": "^7.0.0",
+    "helmet": "^7.2.0",
     "http-errors": "2.0.0",
     "izitoast": "^1.4.0",
     "mongo-sanitize": "^1.1.0",
